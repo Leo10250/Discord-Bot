@@ -29,7 +29,7 @@ async def on_message(message):
 
     random_num = random.random()
 
-    if random_num < 0.01:
+    if random_num < 0.05:
         await message.channel.send(f"<@{message.author.id}> That's kinda gay")
 
     if message.content.startswith("hello"):
@@ -41,9 +41,14 @@ async def on_message(message):
 
     for i in words:
         if i in message.content.lower():
-            if random_num < 0.1:
+            if random_num < 0.25:
                 await message.channel.send(f"<@{message.author.id}> stfu")
                 break
+
+    if "among us" in message.content.lower():
+        if random_num < 0.25:
+            await message.channel.send(f"<@{message.author.id}> you are getting vote off rn bro.")
+            
     await client.process_commands(message)
 
 @client.command()
