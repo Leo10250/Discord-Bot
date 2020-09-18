@@ -12,6 +12,7 @@ words = ["valorant",
 
 @client.event
 async def on_ready():
+    await client.change_presence(status=discord.Status.online, activity=discord.Game("your feeling"))
     print("Bot is online!")
 
 @client.event
@@ -27,28 +28,29 @@ async def on_message(message):
     if message.author == client.user:
         return
 
-    random_num = random.random()
-
-    if random_num < 0.05:
+    if random.random() < 0.05:
         await message.channel.send(f"<@{message.author.id}> That's kinda gay")
+        return
 
     if message.content.startswith("hello"):
         greetings = [f"<@{message.author.id}> It's me! The ruler of anime!",
                     f"<@{message.author.id}> As a weeb, I am so sorry for being alive",
                     f"<@{message.author.id}> Professional gamer here, welcome!"]
-        if random_num < 0.25:
+        if random.random() < 0.25:
             await message.channel.send(random.choice(greetings))
+            return
 
     for i in words:
         if i in message.content.lower():
-            if random_num < 0.25:
+            if random.random() < 0.25:
                 await message.channel.send(f"<@{message.author.id}> stfu")
-                break
+                return
 
     if "among us" in message.content.lower():
-        if random_num < 0.25:
+        if random.random() < 0.25:
             await message.channel.send(f"<@{message.author.id}> you are getting vote off rn bro.")
-            
+            return
+
     await client.process_commands(message)
 
 @client.command()
