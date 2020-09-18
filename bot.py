@@ -12,7 +12,7 @@ words = ["valorant",
 
 @client.event
 async def on_ready():
-    print("Bot is online! NO FREAKING WAY!!!! WHAT A BOSS LEO!!!!!")
+    print("Bot is online!")
 
 @client.event
 async def on_member_join(member):
@@ -29,8 +29,6 @@ async def on_message(message):
 
     random_num = random.random()
 
-    # await message.channel.send(random_num)
-
     if random_num < 0.01:
         await message.channel.send(f"<@{message.author.id}> That's kinda gay")
 
@@ -46,6 +44,7 @@ async def on_message(message):
             if random_num < 0.1:
                 await message.channel.send(f"<@{message.author.id}> stfu")
                 break
+    await client.process_commands(message)
 
 @client.command()
 async def ping(ctx):
@@ -65,5 +64,13 @@ async def _8ball(ctx, *, question):
 @client.command()
 async def clear(ctx, amount=5):
     await ctx.channel.purge(limit=amount)
+
+@client.command()
+async def kick(ctx, member : discord.Member, *, reason=None):
+    await member.kick(reason=reason)
+
+@client.command()
+async def ban(ctx, member : discord.Member, *, reason=None):
+    await member.ban(reason=reason)
 
 client.run(token)
