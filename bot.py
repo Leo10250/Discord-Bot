@@ -2,8 +2,8 @@
 import discord
 import json
 import random
-from discord.ext import commands
-
+from discord.ext import commands, tasks
+from itertools import cycle
 
 client = commands.Bot(command_prefix = "!")
 
@@ -17,9 +17,11 @@ meter = json.load(open("Arrays/random_responses.json", "r"))["responses"]["rando
 
 greetings = json.load(open("Arrays/random_responses.json", "r"))["responses"]["random_greetings"]
 
+status = cycle(json.load(open("Arrays/status_options.json", "r"))["playing"])
+
 @client.event
 async def on_ready():
-    await client.change_presence(status=discord.Status.online, activity=discord.Game("your feeling"))
+    change_status.start()
     print("Bot is online!")
 
 @client.event
@@ -107,5 +109,9 @@ async def unban(ctx, *, member):
             await ctx.guild.unban(user)
             await ctx.send(f"Unbanned {user.mention}")
             return
+
+@tasks.loop(hours=10)
+async def change_status():
+    await client.change_presence(status=discord.Status.online, activity=discord.Game(next(status)))
 
 client.run(token)
