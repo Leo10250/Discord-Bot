@@ -85,25 +85,34 @@ async def clear(ctx, amount=5):
 
 @client.command()
 async def kick(ctx, member : discord.Member, *, reason=None):
-    await member.kick(reason=reason)
-    await ctx.send(f"Kicked {member.mention}\nreason: {reason}")
+    if ctx.message.author.server_permissions.administrator:
+        await member.kick(reason=reason)
+        await ctx.send(f"Kicked {member.mention}\nreason: {reason}")
+    else:
+        ctx.send(f"{member.mention}, You dont have permission to kick people...")
 
 @client.command()
 async def ban(ctx, member : discord.Member, *, reason=None):
-    await member.ban(reason=reason)
-    await ctx.send(f"Banned {member.mention}\nreason: {reason}")
+    if ctx.message.author.server_permissions.administrator:
+        await member.ban(reason=reason)
+        await ctx.send(f"Banned {member.mention}\nreason: {reason}")
+    else:
+        ctx.send(f"{member.mention}, You dont have permission to ban people...")
 
 @client.command()
 async def unban(ctx, *, member):
-    banned_users = await ctx.guild.bans()
-    member_name, member_discriminator = member.split("#")
+    if ctx.message.author.server_permissions.administrator:
+        banned_users = await ctx.guild.bans()
+        member_name, member_discriminator = member.split("#")
 
-    for ban_entry in banned_users:
-        user = ban_entry.user
+        for ban_entry in banned_users:
+            user = ban_entry.user
 
-        if(user.name, user.discriminator) == (member_name, member_discriminator):
-            await ctx.guild.unban(user)
-            await ctx.send(f"Unbanned {user.mention}")
-            return
+            if(user.name, user.discriminator) == (member_name, member_discriminator):
+                await ctx.guild.unban(user)
+                await ctx.send(f"Unbanned {user.mention}")
+                return
+    else:
+        ctx.send(f"{member.mention}, You dont have permission to unban people...")
 
 client.run(token)
