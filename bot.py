@@ -19,7 +19,7 @@ greetings = json.load(open("Arrays/random_responses.json", "r"))["responses"]["r
 
 status = cycle(json.load(open("Arrays/status_options.json", "r"))["playing"])
 
-offend = json.load(open("Arrays/insult.json", "r"))["bad"]
+offend = json.load(open("Arrays/Insult.json", "r"))["bad"]
 
 @client.event
 async def on_ready():
