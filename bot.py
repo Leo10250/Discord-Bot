@@ -85,21 +85,39 @@ async def _8ball(ctx, *, question):
     await ctx.send(f"Question: {question}\nAnswer: {random.choice(answer)}")
 
 @client.command()
+@commands.has_permissions(manage_messages=True)
 async def clear(ctx, amount=5):
     await ctx.channel.purge(limit=amount)
 
+@clear.error
+async def clear_error(ctx, error):
+    if isinstance(error, commands.MissingPermissions):
+        await ctx.send(f"<@{ctx.message.author.id}> You do not have the permission to edit messages.")
+
 @client.command()
+@commands.has_permissions(kick_members=True)
 async def kick(ctx, member : discord.Member, *, reason=None):
     await member.kick(reason=reason)
     await ctx.send(f"Kicked {member.mention}\nreason: {reason}")
 
+@kick.error
+async def kick_error(ctx, error):
+    if isinstance(error, commands.MissingPermissions):
+        await ctx.send(f"<@{ctx.message.author.id}> You do not have the permission to kick members.")
 
 @client.command()
+@commands.has_permissions(ban_members=True)
 async def ban(ctx, member : discord.Member, *, reason=None):
     await member.ban(reason=reason)
     await ctx.send(f"Banned {member.mention}\nreason: {reason}")
 
+@ban.error
+async def ban_error(ctx, error):
+    if isinstance(error, commands.MissingPermissions):
+        await ctx.send(f"<@{ctx.message.author.id}> You do not have the permission to ban members.")
+
 @client.command()
+@commands.has_permissions(ban_members=True)
 async def unban(ctx, *, member):
     banned_users = await ctx.guild.bans()
     member_name, member_discriminator = member.split("#")
@@ -112,6 +130,11 @@ async def unban(ctx, *, member):
             await ctx.send(f"Unbanned {user.mention}")
             return
 
+@unban.error
+async def unban_error(ctx, error):
+    if isinstance(error, commands.MissingPermissions):
+        await ctx.send(f"<@{ctx.message.author.id}> You do not have the permission to unban members.")
+
 @client.command()
 async def tell(ctx, member : discord.Member, *, reason):
     await ctx.send(f"{member.mention} {reason}")
@@ -123,6 +146,10 @@ async def tell_error(ctx, error):
 
 @client.command()
 async def insult(ctx, member : discord.Member):
+    if member.id == 578715287491182595:
+        if random.random() < 0.25:
+            await ctx.send(f"{member.mention} You are the smartest and the straightest man alive!")
+            return
     await ctx.send(f"{member.mention} {random.choice(offend)}")
 
 @insult.error
@@ -138,5 +165,11 @@ async def on_command_error(ctx, error):
 @tasks.loop(hours=10)
 async def change_status():
     await client.change_presence(status=discord.Status.online, activity=discord.Game(next(status)))
+
+def obtain_id(ctx):
+    return ctx.author.id
+
+def is_it_me(ctx):
+    return obtain_id == 578715287491182595
 
 client.run(token)
