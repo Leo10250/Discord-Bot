@@ -19,6 +19,8 @@ greetings = json.load(open("Arrays/random_responses.json", "r"))["responses"]["r
 
 status = cycle(json.load(open("Arrays/status_options.json", "r"))["playing"])
 
+offend = json.load(open("Arrays/insult.json", "r"))["bad"]
+
 @client.event
 async def on_ready():
     change_status.start()
@@ -109,6 +111,29 @@ async def unban(ctx, *, member):
             await ctx.guild.unban(user)
             await ctx.send(f"Unbanned {user.mention}")
             return
+
+@client.command()
+async def tell(ctx, member : discord.Member, *, reason):
+    await ctx.send(f"{member.mention} {reason}")
+
+@tell.error
+async def tell_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument) or isinstance(error, commands.BadArgument):
+        await ctx.send(f"<@{ctx.message.author.id}> Bruh, you are using this command wrong...\nExample:\nInput: !tell <@{ctx.message.author.id}> You did something wrong!\nOutput: <@{ctx.message.author.id}> You did something wrong!")
+
+@client.command()
+async def insult(ctx, member : discord.Member):
+    await ctx.send(f"{member.mention} {random.choice(offend)}")
+
+@insult.error
+async def insult_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument) or isinstance(error, commands.BadArgument):
+        await ctx.send(f"<@{ctx.message.author.id}> You can't even insult people correctly?\nHere is how:\n !insult <@{ctx.message.author.id}> {random.choice(offend)}")
+
+@client.event
+async def on_command_error(ctx, error):
+    if isinstance(error, commands.CommandNotFound):
+        await ctx.send(f"<@{ctx.message.author.id}> That is not a valid command for me!\nUse !help to check out all existing commands!\nB r u h")
 
 @tasks.loop(hours=10)
 async def change_status():
