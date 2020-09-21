@@ -184,4 +184,14 @@ def obtain_id(ctx):
 def is_it_me(ctx):
     return obtain_id == 578715287491182595
 
+@client.command(pass_context=True)
+async def dm(ctx, member : discord.Member, *, content):
+    channel = await member.create_dm()
+    await channel.send(f"**{ctx.message.author} said:** {content}") 
+
+@client.command(pass_context=True)
+async def pm(ctx, member : discord.Member, *, content):
+    channel = await member.create_dm()
+    await channel.send(f"{content}")                                     
+
 client.run(token)
