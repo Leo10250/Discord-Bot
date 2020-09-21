@@ -28,6 +28,11 @@ async def on_ready():
 
 @client.event
 async def on_member_join(member):
+    # Auto adding roles upon joining
+    #  
+    # role = discord.utils.get(ctx.guild.roles, name = "{whatever your role is}") 
+    # await ctx.add_roles(role)
+
     print(f"{member} has joined!")
 
 @client.event
@@ -38,6 +43,12 @@ async def on_member_remove(member):
 async def on_message(message):
     if message.author == client.user:
         return
+
+    if random.random() < 0.01:
+        emoji = discord.utils.get(message.guild.emojis, name='pepePanties')
+        if emoji:
+            await message.add_reaction(emoji)
+            return
 
     if random.random() < 0.01:
         if random.random() < 0.75:
@@ -76,6 +87,7 @@ async def ping(ctx):
                 "No",
                 "discord.errors.Forbidden: 403 Forbidden (error code: 50007): LEO TOLD ME TO NOT SEND MESSAGES TO THIS USER"]
     await ctx.send(random.choice(response))
+
 
 @client.command(aliases = ["8ball"])
 async def _8ball(ctx, *, question):
