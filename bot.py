@@ -33,6 +33,9 @@ async def on_member_join(member):
     # role = discord.utils.get(ctx.guild.roles, name = "{whatever your role is}") 
     # await ctx.add_roles(role)
 
+    channel = await member.create_dm()
+    await channel.send(f"Welcome! I am a bot of this server! Please review the rules of the server under the **rules** section!")
+
     print(f"{member} has joined!")
 
 @client.event
@@ -191,7 +194,7 @@ async def dm(ctx, member : discord.Member, *, content):
 
 @client.command(pass_context=True)
 async def pm(ctx, member : discord.Member, *, content):
-    channel = await member.create_dm()
-    await channel.send(f"{content}")                                     
+    channel1 = await member.create_dm()
+    await channel1.send(f"{content}")                                     
 
 client.run(token)
