@@ -6,6 +6,7 @@ from discord.ext import commands, tasks
 from itertools import cycle
 
 client = commands.Bot(command_prefix = "!")
+client.remove_command("help")
 
 token = json.load(open("secrets.json", "r"))["secret"]
 
@@ -195,6 +196,24 @@ async def dm(ctx, member : discord.Member, *, content):
 @client.command(pass_context=True)
 async def pm(ctx, member : discord.Member, *, content):
     channel1 = await member.create_dm()
-    await channel1.send(f"{content}")                                     
+    await channel1.send(f"{content}")   
+
+@client.command()
+async def help(ctx):
+    embed = discord.Embed(colour = discord.Colour.orange())                             
+    embed.set_author(name="Help")
+    embed.add_field(name="!insult", value="Insults designated member", inline=False)
+    embed.add_field(name="!tell *message here*", value="@ and tells the designated member what you want it to say", inline=False)
+    embed.add_field(name="!dm *message here*", value="Direct-messages a member of your choice(with name)", inline=False)
+    embed.add_field(name="!pm *message here*", value="Private-messages a member of your choice(no name)", inline=False)
+    embed.add_field(name="!ping", value="Tells you your ping(most of the times)", inline=False)
+    embed.add_field(name="!8ball *question here*", value="Answers your question", inline=False)
+    embed.add_field(name="!clear", value="Clears a desginated number of messages", inline=False)
+    embed.add_field(name="!kick *member*", value="Kicks a member(if with permission)", inline=False)
+    embed.add_field(name="!ban *member*", value="Bans a member(if with permission)", inline=False)
+    embed.add_field(name="!unban *member*", value="Unbans a member(if with permission)", inline=False)
+    embed.add_field(name="!help", value="Displays all available commands", inline=False)
+
+    await ctx.send(embed=embed)
 
 client.run(token)
