@@ -147,8 +147,8 @@ async def tell_error(ctx, error):
 @client.command()
 async def insult(ctx, member : discord.Member):
     if member.id == 578715287491182595:
-        if random.random() < 0.25:
-            await ctx.send(f"{member.mention} You are the smartest and the straightest man alive!")
+        if random.random() < 0.5:
+            await ctx.send(f"<@{ctx.message.author.id}> HOW DARE YOU INSULT MY MASTER!!!\n{member.mention} My lord, what should I do with this big bruh?")
             return
     await ctx.send(f"{member.mention} {random.choice(offend)}")
 
