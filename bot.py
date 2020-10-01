@@ -22,6 +22,8 @@ status = cycle(json.load(open("Arrays/status_options.json", "r"))["playing"])
 
 offend = json.load(open("Arrays/Insult.json", "r"))["bad"]
 
+
+
 @client.event
 async def on_ready():
     change_status.start()
@@ -43,23 +45,36 @@ async def on_member_join(member):
 async def on_member_remove(member):
     print(f"{member} has left!")
 
+last = 15343854848
+last_web = 4138434834
+
 @client.event
 async def on_message(message):
     if message.author == client.user:
         return
 
     if random.random() < 0.01:
-        emoji = discord.utils.get(message.guild.emojis, name='pepePanties')
-        if emoji:
-            await message.add_reaction(emoji)
+        if random.random() < 0.75:
+            current = random.randint(0, len(meter) - 1)
+            global last
+            while(last == current):
+                current = random.randint(0, len(meter) - 1)
+            last = current
+            await message.channel.send(f"<@{message.author.id}> {meter[current]}")
+            return
+        else:
+            current_web = random.randint(0, len(websites) - 1)
+            global last_web
+            while(last_web == current_web):
+                current_web = random.randint(0, len(websites) - 1)
+                last_web = current_web
+            await message.channel.send(f"<@{message.author.id}> NO TIME TO EXPLAIN, WE GOTTA GO!\n{websites[current_web]}")
             return
 
     if random.random() < 0.01:
-        if random.random() < 0.75:
-            await message.channel.send(f"<@{message.author.id}> {random.choice(meter)}")
-            return
-        else:
-            await message.channel.send(f"<@{message.author.id}> NO TIME TO EXPLAIN, WE GOTTA GO!\n{random.choice(websites)}")
+        emoji = discord.utils.get(message.guild.emojis, name='pepePanties')
+        if emoji:
+            await message.add_reaction(emoji)
             return
     
     if "gay" in message.content.lower():
