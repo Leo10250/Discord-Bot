@@ -15,4 +15,4 @@ If you have any feedback, feel free to take this opportunity to become a contrib
 **Licensing**
 
 
-Amy is licensed under the MIT License and is copyrighted by © Gideon Tong 2019-2020. She depends on the Discord.js, qrcode, canvas, youtube-dl, and log4js Node packages, which are both licensed under the Apache-2.0 License.
+This bot is licensed under the MIT License and is copyrighted by © Leo Zhang 2019-2020.
