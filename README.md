@@ -1,4 +1,5 @@
-Discord bot developed for moderation and entertainment purposes.
+# Calm Leo
+Hey! Welcome to my Discord bot, dubbed "Calm Leo," because it is a way calmer version of me, the real Leo.Calm Leo is a Discord bot developed for moderation and entertainment purposes.
 
 **Features**
 * Custom welcome, about, join, and help messages tailored to communities
