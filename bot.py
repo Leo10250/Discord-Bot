@@ -52,6 +52,8 @@ last_web = 4138434834
 async def on_message(message):
     if message.author == client.user:
         return
+    elif message.channel.id == 753045768696234074:
+        return
 
     if random.random() < 0.01:
         if random.random() < 0.75:
