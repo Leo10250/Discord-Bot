@@ -22,19 +22,19 @@ status = cycle(json.load(open("Arrays/status_options.json", "r"))["playing"])
 
 offend = json.load(open("Arrays/Insult.json", "r"))["bad"]
 
-GIVE_ROLE_UPON_JOINING = json.load(open("config.json", "r"))["GIVE_ROLE_UPON_JOINING"]
+config = json.load(open('config.json', 'r'))
 
-DM_New_Member_Upon_Joining = json.load(open("config.json", "r"))["DM_New_Member_Upon_Joining"]
+[
+    DM_New_Member_Upon_Joining,
+    Joining_Message,
+    GIVE_ROLE_UPON_JOINING,
+    role_ID,
+    ALLOW_CUSTOM_MESSAGE,
+    CUSTOM_MESSAGE_ON_MESSAGE,
+    CUSTOM_MESSAGE_CHANCE
+] = [config[i] for i in config]
 
-Joining_Message = json.load(open("config.json", "r"))["Joining_Message"]
-
-role_ID = json.load(open("config.json", "r"))["Role_ID"]
-
-ALLOW_CUSTOM_MESSAGE = json.load(open("config.json", "r"))["ALLOW_CUSTOM_MESSAGE"]
-
-CUSTOM_MESSAGE_ON_MESSAGE = json.load(open("config.json", "r"))["CUSTOM_MESSAGE_ON_MESSAGE"]
-
-CUSTOM_MESSAGE_CHANCE = int(json.load(open("config.json", "r"))["CUSTOM_MESSAGE_CHANCE"])
+CUSTOM_MESSAGE_CHANCE = int(CUSTOM_MESSAGE_CHANCE)
 
 @client.event
 async def on_ready():
