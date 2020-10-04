@@ -236,12 +236,16 @@ def is_it_me(ctx):
 @client.command(pass_context=True)
 async def dm(ctx, member : discord.Member, *, content):
     channel = await member.create_dm()
-    await channel.send(f"**{ctx.message.author} said:** {content}") 
+    await channel.send(f"**{ctx.message.author} said:** {content}")
+    await ctx.channel.purge(limit=1)
+    
 
 @client.command(pass_context=True)
 async def pm(ctx, member : discord.Member, *, content):
     channel1 = await member.create_dm()
-    await channel1.send(f"{content}")   
+    await channel1.send(f"{content}")
+    await ctx.channel.purge(limit=1)
+    
 
 @client.command()
 async def help(ctx):
