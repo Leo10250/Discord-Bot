@@ -22,7 +22,19 @@ status = cycle(json.load(open("Arrays/status_options.json", "r"))["playing"])
 
 offend = json.load(open("Arrays/Insult.json", "r"))["bad"]
 
+GIVE_ROLE_UPON_JOINING = json.load(open("config.json", "r"))["GIVE_ROLE_UPON_JOINING"]
 
+DM_New_Member_Upon_Joining = json.load(open("config.json", "r"))["DM_New_Member_Upon_Joining"]
+
+Joining_Message = json.load(open("config.json", "r"))["Joining_Message"]
+
+role_ID = json.load(open("config.json", "r"))["Role_ID"]
+
+ALLOW_CUSTOM_MESSAGE = json.load(open("config.json", "r"))["ALLOW_CUSTOM_MESSAGE"]
+
+CUSTOM_MESSAGE_ON_MESSAGE = json.load(open("config.json", "r"))["CUSTOM_MESSAGE_ON_MESSAGE"]
+
+CUSTOM_MESSAGE_CHANCE = int(json.load(open("config.json", "r"))["CUSTOM_MESSAGE_CHANCE"])
 
 @client.event
 async def on_ready():
@@ -31,13 +43,16 @@ async def on_ready():
 
 @client.event
 async def on_member_join(member):
-    # Auto adding roles upon joining
-    #  
-    # role = discord.utils.get(ctx.guild.roles, name = "{whatever your role is}") 
-    # await ctx.add_roles(role)
 
-    channel = await member.create_dm()
-    await channel.send(f"Welcome! I am a bot of this server! Please review the rules of the server under the **rules** section!")
+    # Auto adding roles upon joining
+    if GIVE_ROLE_UPON_JOINING == True:
+        role = discord.utils.get(member.server.roles, id=f"<{role_ID}>")
+        await member.add_roles(member, role)
+
+    # Dm new member upon joining
+    if DM_New_Member_Upon_Joining == True:
+        channel = await member.create_dm()
+        await channel.send(Joining_Message)
 
     print(f"{member} has joined!")
 
@@ -55,10 +70,23 @@ async def on_message(message):
     elif message.channel.id == 753045768696234074:
         return
 
+    global last
+    global last_web
+    if ALLOW_CUSTOM_MESSAGE == "True":
+        print("true")
+        if random.random() < CUSTOM_MESSAGE_CHANCE:
+            print("method worked")
+            current = random.randint(0, len(meter) - 1)
+            while(last == current):
+                current = random.randint(0, len(meter) - 1)
+            last = current
+            await message.channel.send(f"<@{message.author.id}> {CUSTOM_MESSAGE_ON_MESSAGE[current]}")
+            return 
+
     if random.random() < 0.01:
         if random.random() < 0.75:
             current = random.randint(0, len(meter) - 1)
-            global last
+            # global last
             while(last == current):
                 current = random.randint(0, len(meter) - 1)
             last = current
@@ -66,7 +94,7 @@ async def on_message(message):
             return
         else:
             current_web = random.randint(0, len(websites) - 1)
-            global last_web
+            # global last_web
             while(last_web == current_web):
                 current_web = random.randint(0, len(websites) - 1)
                 last_web = current_web

@@ -1,0 +1,15 @@
+{
+    "DM_New_Member_Upon_Joining": "False",
+    
+    "Joining_Message": "Welcome! I am a bot of this server! Please review the rules of the server under the **rules** section!",
+
+    "GIVE_ROLE_UPON_JOINING": "False",
+
+    "Role_ID": "746968750783332363",
+
+    "ALLOW_CUSTOM_MESSAGE": "False",
+
+    "CUSTOM_MESSAGE_ON_MESSAGE": ["Input the message you want the bot to reply to whoever sent out a message", "You can have more than one messages stored", "You can add more if you like"],
+
+    "CUSTOM_MESSAGE_CHANCE": "0"
+}
