@@ -133,8 +133,7 @@ async def on_message(message):
 async def ping(ctx):
     response = [f"Shut the fuck up {round(client.latency * 1000)}ms boy",
                 f"Here you go kind sir: {round(client.latency*1000)}ms",
-                "No",
-                "discord.errors.Forbidden: 403 Forbidden (error code: 50007): LEO TOLD ME TO NOT SEND MESSAGES TO THIS USER"]
+                "No"]
     await ctx.send(random.choice(response))
 
 
