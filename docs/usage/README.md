@@ -11,10 +11,10 @@ All users have access to the following commands!
 | `pm (user) [message]`       | `pm the user your message(your name not included)`               |
 | `ping`                      | `replies you with your current ping`                             |
 | `8ball [question]`          | `answers your question`                                          |
-| `clear [*optional* number]  | `clears messages(default is 5 messages)                          |
-| `kick (user)                | `kicks the user if you have the appropriate permission`          |
-| `ban (user)                 | `bans the user if you have the appropriate permission`           |
-| `unban (user)               | `unbans the user if you have the appropriate permission`         |
+| `clear [*optional* number]` | `clears messages(default is 5 messages)                          |
+| `kick (user)`               | `kicks the user if you have the appropriate permission`          |
+| `ban (user)`                | `bans the user if you have the appropriate permission`           |
+| `unban (user)`              | `unbans the user if you have the appropriate permission`         |
 | `help`                      | `displays all available commands`                                |
 
 
