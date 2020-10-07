@@ -36,6 +36,10 @@ config = json.load(open('config.json', 'r'))
 
 CUSTOM_MESSAGE_CHANCE = int(CUSTOM_MESSAGE_CHANCE)
 
+randMessage = 1
+
+randReaction = 1
+
 @client.event
 async def on_ready():
     change_status.start()
@@ -83,29 +87,30 @@ async def on_message(message):
             await message.channel.send(f"<@{message.author.id}> {CUSTOM_MESSAGE_ON_MESSAGE[current]}")
             return 
 
-    if random.random() < 0.01:
-        if random.random() < 0.75:
-            current = random.randint(0, len(meter) - 1)
-            # global last
-            while(last == current):
+    if randMessage == 1:
+        if random.random() < 0.01:
+            if random.random() < 0.75:
                 current = random.randint(0, len(meter) - 1)
-            last = current
-            await message.channel.send(f"<@{message.author.id}> {meter[current]}")
-            return
-        else:
-            current_web = random.randint(0, len(websites) - 1)
-            # global last_web
-            while(last_web == current_web):
+                # global last
+                while(last == current):
+                    current = random.randint(0, len(meter) - 1)
+                last = current
+                await message.channel.send(f"<@{message.author.id}> {meter[current]}")
+                return
+            else:
                 current_web = random.randint(0, len(websites) - 1)
-                last_web = current_web
-            await message.channel.send(f"<@{message.author.id}> NO TIME TO EXPLAIN, WE GOTTA GO!\n{websites[current_web]}")
-            return
-
-    if random.random() < 0.01:
-        emoji = discord.utils.get(message.guild.emojis, name='pepePanties')
-        if emoji:
-            await message.add_reaction(emoji)
-            return
+                # global last_web
+                while(last_web == current_web):
+                    current_web = random.randint(0, len(websites) - 1)
+                    last_web = current_web
+                await message.channel.send(f"<@{message.author.id}> NO TIME TO EXPLAIN, WE GOTTA GO!\n{websites[current_web]}")
+                return
+    if randReaction == 1:
+        if random.random() < 0.01:
+            emoji = discord.utils.get(message.guild.emojis, name='pepePanties')
+            if emoji:
+                await message.add_reaction(emoji)
+                return
     
     if "gay" in message.content.lower():
         if random.random() < 0.2:
@@ -244,6 +249,58 @@ async def pm(ctx, member : discord.Member, *, content):
     channel1 = await member.create_dm()
     await channel1.send(f"{content}")
     await ctx.channel.purge(limit=1)
+
+@client.command
+async def randMessage_on(ctx):
+    if ctx.message.author.guild_permissions.administrator:
+        if(randMessage == 1):
+            await ctx.send(f"<@{ctx.message.author.id}> Random_Message is already on...")
+            return
+        randMessage = 1
+        await ctx.send(f"<@{ctx.message.author.id}> Random_Message is now on!")
+    else:
+        await ctx.send(f"<@{ctx.message.author.id}> You don't have the permission to enable Random_Message.")
+
+@randMessage_on.error
+async def enable_randMessage_error(ctx):
+    pass
+
+@client.command
+async def randMessage_off(ctx):
+    if ctx.message.author.guild_permissions.administrator:
+        if(randMessage == 0):
+            await ctx.send(f"<@{ctx.message.author.id}> Random_Message is already off...")
+            return
+        randMessage = 0
+        await ctx.send(f"<@{ctx.message.author.id}> Random_Message is now off!")
+    else:
+        await ctx.send(f"<@{ctx.message.author.id}> You don't have the permission to disable Random_Message.")  
+
+@randMessage_off.error
+async def disable_randMessage_error(ctx):
+    pass 
+
+@client.command
+async def randReact_on(ctx):
+    if ctx.message.author.guild_permissions.administrator:
+        if(randReaction == 1):
+            await ctx.send(f"<@{ctx.message.author.id}> Random_Reaction is already on...")
+            return
+        randReaction = 1
+        await ctx.send(f"<@{ctx.message.author.id}> Random_Reaction is now on!")
+    else:
+        await ctx.send(f"<@{ctx.message.author.id}> You don't have the permission to enable Random_Reaction.")
+
+@client.command
+async def randReact_off(ctx):
+    if ctx.message.author.guild_permissions.administrator:
+        if(randReaction == 0):
+            await ctx.send(f"<@{ctx.message.author.id}> Random_Message is already off...")
+            return
+        randReaction = 0
+        await ctx.send(f"<@{ctx.message.author.id}> Random_Message is now off!")
+    else:
+        await ctx.send(f"<@{ctx.message.author.id}> You don't have the permission to disable Random_Reaction.")  
     
 
 @client.command()
@@ -260,6 +317,10 @@ async def help(ctx):
     embed.add_field(name="!kick *member*", value="Kicks a member(if with permission)", inline=False)
     embed.add_field(name="!ban *member*", value="Bans a member(if with permission)", inline=False)
     embed.add_field(name="!unban *member*", value="Unbans a member(if with permission)", inline=False)
+    embed.add_field(name="!randMessage_on", value="allows the bot to send random messages", inline=False)
+    embed.add_field(name="!randMessage_off", value="prevents the bot to send random messages", inline=False)
+    embed.add_field(name="!randReact_on", value="allows the bot to randomly add a reaction to a message", inline=False)
+    embed.add_field(name="!randReact_off", value="prevents the bot from randomly adding a reaction to a message", inline=False)
     embed.add_field(name="!help", value="Displays all available commands", inline=False)
 
     await ctx.send(embed=embed)

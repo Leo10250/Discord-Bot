@@ -15,6 +15,10 @@ All users have access to the following commands!
 | `kick (user)`               | `kicks the user if you have the appropriate permission`          |
 | `ban (user)`                | `bans the user if you have the appropriate permission`           |
 | `unban (user)`              | `unbans the user if you have the appropriate permission`         |
+| `randMessage_on`            | `allows the bot to reply with random messages`                   |
+| `randMessage_off`           | `prevents the bot to reply with random messages`                 |
+| `randReact_on`              | `allows the bot to randomly add a reaction to a message`         |
+| `randReact_off`             | `prevents the bot from randomly adding a reaction to a message`  |
 | `help`                      | `displays all available commands`                                |
 
 
