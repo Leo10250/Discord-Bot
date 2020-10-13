@@ -202,6 +202,7 @@ async def unban_error(ctx, error):
 
 @client.command()
 async def tell(ctx, member : discord.Member, *, reason):
+    await ctx.channel.purge(limit=1)
     await ctx.send(f"{member.mention} {reason}")
 
 @tell.error
@@ -261,9 +262,9 @@ async def randMessage_on(ctx):
     else:
         await ctx.send(f"<@{ctx.message.author.id}> You don't have the permission to enable Random_Message.")
 
-@randMessage_on.error
-async def enable_randMessage_error(ctx):
-    pass
+# @randMessage_on.error
+# async def enable_randMessage_error(ctx):
+#     pass
 
 @client.command
 async def randMessage_off(ctx):
@@ -276,9 +277,9 @@ async def randMessage_off(ctx):
     else:
         await ctx.send(f"<@{ctx.message.author.id}> You don't have the permission to disable Random_Message.")  
 
-@randMessage_off.error
-async def disable_randMessage_error(ctx):
-    pass 
+# @randMessage_off.error
+# async def disable_randMessage_error(ctx):
+#     pass 
 
 @client.command
 async def randReact_on(ctx):
