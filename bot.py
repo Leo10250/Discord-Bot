@@ -88,7 +88,7 @@ async def on_message(message):
             return 
 
     if randMessage == 1:
-        if random.random() < 0.01:
+        if random.random() < 0.001:
             if random.random() < 0.75:
                 current = random.randint(0, len(meter) - 1)
                 # global last
