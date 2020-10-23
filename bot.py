@@ -90,15 +90,14 @@ async def on_message(message):
     if randMessage == 1:
         random_num = random.random() 
         if random_num < 0.001:
-            if random.random() < 0.75:
+            current = random.randint(0, len(meter) - 1)
+            # global last
+            while(last == current):
                 current = random.randint(0, len(meter) - 1)
-                # global last
-                while(last == current):
-                    current = random.randint(0, len(meter) - 1)
-                last = current
-                await message.channel.send(f"<@{message.author.id}> {meter[current]}")
-                return
-        elif random_num < 0.01:
+            last = current
+            await message.channel.send(f"<@{message.author.id}> {meter[current]}")
+            return
+        elif random_num < 0.011:
             current_web = random.randint(0, len(websites) - 1)
             # global last_web
             while(last_web == current_web):
