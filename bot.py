@@ -88,7 +88,8 @@ async def on_message(message):
             return 
 
     if randMessage == 1:
-        if random.random() < 0.001:
+        random_num = random.random() 
+        if random_num < 0.001:
             if random.random() < 0.75:
                 current = random.randint(0, len(meter) - 1)
                 # global last
@@ -97,14 +98,15 @@ async def on_message(message):
                 last = current
                 await message.channel.send(f"<@{message.author.id}> {meter[current]}")
                 return
-            else:
+        elif random_num < 0.01:
+            current_web = random.randint(0, len(websites) - 1)
+            # global last_web
+            while(last_web == current_web):
                 current_web = random.randint(0, len(websites) - 1)
-                # global last_web
-                while(last_web == current_web):
-                    current_web = random.randint(0, len(websites) - 1)
-                    last_web = current_web
-                await message.channel.send(f"<@{message.author.id}> NO TIME TO EXPLAIN, WE GOTTA GO!\n{websites[current_web]}")
-                return
+                last_web = current_web
+            await message.channel.send(f"<@{message.author.id}> NO TIME TO EXPLAIN, WE GOTTA GO!\n{websites[current_web]}")
+            return
+
     if randReaction == 1:
         if random.random() < 0.01:
             emoji = discord.utils.get(message.guild.emojis, name='pepePanties')
