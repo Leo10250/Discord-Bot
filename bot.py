@@ -215,6 +215,16 @@ async def tell_error(ctx, error):
         await ctx.send(f"<@{ctx.message.author.id}> Bruh, you are using this command wrong...\nExample:\nInput: !tell <@{ctx.message.author.id}> You did something wrong!\nOutput: <@{ctx.message.author.id}> You did something wrong!")
 
 @client.command()
+async def say(ctx, *, reason):
+    await ctx.channel.purge(limit=1)
+    await ctx.send(f"{reason}")
+
+@tell.error
+async def say_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument) or isinstance(error, commands.BadArgument):
+        await ctx.send(f"<@{ctx.message.author.id}> Bruh, you are using this command wrong...\nExample:\nInput: !say You did something wrong!\nOutput: You did something wrong!")
+
+@client.command()
 async def insult(ctx, member : discord.Member):
     if member.id == 578715287491182595:
         if random.random() < 0.5:
