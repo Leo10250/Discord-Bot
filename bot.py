@@ -97,7 +97,7 @@ async def on_message(message):
             last = current
             await message.channel.send(f"<@{message.author.id}> {meter[current]}")
             return
-        elif random_num < 0.011:
+        elif random_num >= 0.001 and random_num < 0.002:
             current_web = random.randint(0, len(websites) - 1)
             # global last_web
             while(last_web == current_web):
