@@ -89,7 +89,7 @@ async def on_message(message):
 
     if randMessage == 1:
         random_num = random.random() 
-        if random_num < 0.001:
+        if random_num < 0.0001:
             current = random.randint(0, len(meter) - 1)
             # global last
             while(last == current):
@@ -97,7 +97,7 @@ async def on_message(message):
             last = current
             await message.channel.send(f"<@{message.author.id}> {meter[current]}")
             return
-        elif random_num >= 0.001 and random_num < 0.002:
+        elif random_num >= 0.0001 and random_num < 0.0002:
             current_web = random.randint(0, len(websites) - 1)
             # global last_web
             while(last_web == current_web):
@@ -133,7 +133,7 @@ async def on_message(message):
 
     if "among us" in message.content.lower():
         if random.random() < 0.25:
-            await message.channel.send(f"<@{message.author.id}> you are getting vote off rn bro.")
+            await message.channel.send(f"<@{message.author.id}> you are getting voted off rn bro.")
             return
 
     await client.process_commands(message)
