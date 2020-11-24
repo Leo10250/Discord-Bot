@@ -117,7 +117,7 @@ async def on_message(message):
         await message.channel.send(f"<@{message.author.id}> Shhhhhhhh \nhttps://i.redd.it/spoaltgn8ud51.jpg")
 
     if "gay" in message.content.lower():
-        if random.random() < 0.2:
+        if random.random() < 0.05:
             await message.channel.send(f"<@{message.author.id}> Leo, is that you?")
 
     if message.content.startswith("hello"):
@@ -127,12 +127,12 @@ async def on_message(message):
 
     for i in words:
         if i in message.content.lower():
-            if random.random() < 0.25:
+            if random.random() < 0.01:
                 await message.channel.send(f"<@{message.author.id}> stfu")
                 return
 
     if "among us" in message.content.lower():
-        if random.random() < 0.25:
+        if random.random() < 0.01:
             await message.channel.send(f"<@{message.author.id}> you are getting voted off rn bro.")
             return
 
@@ -150,7 +150,8 @@ async def ping(ctx):
 async def _8ball(ctx, *, question):
     answer = ["Idk",
             "www.google.com",
-            "https://imgur.com/gallery/TCmi3"]
+            "https://imgur.com/gallery/TCmi3",
+            "Yes!"]
     await ctx.send(f"Question: {question}\nAnswer: {random.choice(answer)}")
 
 @client.command()
