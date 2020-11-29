@@ -243,6 +243,11 @@ async def on_command_error(ctx, error):
     if isinstance(error, commands.CommandNotFound):
         await ctx.send(f"<@{ctx.message.author.id}> That is not a valid command for me!\nUse !help to check out all existing commands!\nB r u h")
 
+@client.command(pass_context=True)
+async def meme(ctx):
+    memes = json.load(open("Arrays/memes.json", "r"))["memes"]
+    await ctx.send(random.choice(memes))
+
 @tasks.loop(hours=10)
 async def change_status():
     await client.change_presence(status=discord.Status.online, activity=discord.Game(next(status)))
