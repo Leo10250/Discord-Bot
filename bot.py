@@ -328,8 +328,10 @@ async def randReact_off(ctx):
 async def help(ctx):
     embed = discord.Embed(colour = discord.Colour.orange())                             
     embed.set_author(name="Help")
+    embed.add_field(name="!meme", value="Displays a meme", inline=False)
     embed.add_field(name="!insult (user)", value="Insults designated member", inline=False)
     embed.add_field(name="!tell (*user*) [*message*]", value="@ and tells the designated member what you want it to say", inline=False)
+    embed.add_field(name="!say [*message*]", value="bot sends the designated message", inline=False)
     embed.add_field(name="!dm (*user*)[*message here]", value="Direct-messages a member of your choice(with name)", inline=False)
     embed.add_field(name="!pm (*user*) [*message here*]", value="Private-messages a member of your choice(no name)", inline=False)
     embed.add_field(name="!ping", value="Tells you your ping(most of the times)", inline=False)
