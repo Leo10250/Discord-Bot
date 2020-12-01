@@ -3,6 +3,7 @@ import discord
 import json
 import random
 from discord.ext import commands, tasks
+from discord.utils import find
 from itertools import cycle
 
 def get_prefix(client, message):
@@ -57,6 +58,10 @@ async def on_guild_join(guild):
     with open("Arrays/prefixes.json" , "w") as f:
         json.dump(prefixes, f, indent=4)
 
+    general = find(lambda x: x.name == 'general',  guild.text_channels)
+    if general and general.permissions_for(guild.me).send_messages:
+        await general.send("https://i.pinimg.com/564x/37/ab/89/37ab89389766b74058bc5b38c2edc4b6.jpg")
+        await general.send('DAFAQ? \nUse !help to learn more. \nUse !change_prefix to do the you know what ;)')
 
 @client.event
 async def on_guild_remove(guild):
@@ -268,6 +273,11 @@ async def say(ctx, *, reason):
     await ctx.channel.purge(limit=1)
     await ctx.send(f"{reason}")
 
+@client.command()
+async def unzip(ctx):
+    await ctx.channel.purge(limit=1)
+    await ctx.send("https://i.chzbgr.com/full/8091158016/h223D6252/sigh-here-we-go-again")
+
 @tell.error
 async def say_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument) or isinstance(error, commands.BadArgument):
@@ -388,6 +398,7 @@ async def help(ctx):
     embed.add_field(name="!insult (*user*)", value="Insults designated member", inline=False)
     embed.add_field(name="!tell (*user*) [*message*]", value="@ and tells the designated member what you want it to say", inline=False)
     embed.add_field(name="!say [*message*]", value="bot sends the designated message", inline=False)
+    embed.add_field(name="!unzip", value="PLEASE DON'T USE IT", inline=False)
     embed.add_field(name="!dm (*user*)[*message here]", value="Direct-messages a member of your choice(with name)", inline=False)
     embed.add_field(name="!pm (*user*) [*message here*]", value="Private-messages a member of your choice(no name)", inline=False)
     embed.add_field(name="!ping", value="Tells you your ping(most of the times)", inline=False)

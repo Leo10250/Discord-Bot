@@ -5,10 +5,12 @@ Calm Leo has a variety of commands, with a focus on entertainment and pranking o
 All users have access to the following commands!
 | Command                     | Description                                                      |
 |-----------------------------|------------------------------------------------------------------|
+| `change_prefix`             | `change the command prefix` |
 | `meme`                      | `sends a random meme`             |
 | `insult (user)`             | `insults the designated user`                                    |
 | `tell (user) [message]`     | `tells the user your message in the current channel`             | 
 | `say [message]`             | `bot sends the designated message` |
+| `unzip`                     | `It's nothing...` |
 | `dm (user) [message]`       | `dm the user your message(your name included)`                   |
 | `pm (user) [message]`       | `pm the user your message(your name not included)`               |
 | `ping`                      | `replies you with your current ping`                             |
