@@ -5,7 +5,13 @@ import random
 from discord.ext import commands, tasks
 from itertools import cycle
 
-client = commands.Bot(command_prefix = "!")
+def get_prefix(client, message):
+    with open("Arrays/prefixes.json", "r") as f:
+        prefixes = json.load(f)
+    
+    return prefixes[str(message.guild.id)]
+
+client = commands.Bot(command_prefix = get_prefix)
 client.remove_command("help")
 
 token = json.load(open("secrets.json", "r"))["secret"]
@@ -39,6 +45,28 @@ CUSTOM_MESSAGE_CHANCE = int(CUSTOM_MESSAGE_CHANCE)
 randMessage = 1
 
 randReaction = 1
+
+
+@client.event
+async def on_guild_join(guild):
+    with open("Arrays/prefixes.json", "r") as f:
+        prefixes = json.load(f)
+    
+    prefixes[str(guild.id)] = "!"
+
+    with open("Arrays/prefixes.json" , "w") as f:
+        json.dump(prefixes, f, indent=4)
+
+
+@client.event
+async def on_guild_remove(guild):
+    with open("Arrays/prefixes.json", "r") as f:
+        prefixes = json.load(f)
+    
+    prefixes.pop(str(guild.id))
+
+    with open("Arrays/prefixes.json" , "w") as f:
+        json.dump(prefixes, f, indent=4)
 
 @client.event
 async def on_ready():
@@ -137,6 +165,24 @@ async def on_message(message):
             return
 
     await client.process_commands(message)
+
+@client.command()
+async def getprefix(ctx):
+    with open("Arrays/prefixes.json", "r") as f:
+        prefixes = json.load(f)
+    
+    await ctx.send(prefixes[str(ctx.guild.id)])
+
+@client.command()
+async def change_prefix(ctx, prefix):
+    prefixes = json.load(open("Arrays/prefixes.json", "r"))
+    #default prefix
+    prefixes[str(ctx.guild.id)] = prefix
+
+    with open("Arrays/prefixes.json" , "w") as f:
+        json.dump(prefixes, f, indent=4)
+
+    await ctx.send(f"The new prefix is now {prefix}")
 
 @client.command()
 async def ping(ctx):
@@ -248,6 +294,13 @@ async def meme(ctx):
     memes = json.load(open("Arrays/memes.json", "r"))["memes"]
     await ctx.send(random.choice(memes))
 
+@client.command(pass_context=True)
+async def quote(ctx):
+    quotes = json.load(open("Arrays/quotes.json", "r"))["quote"]
+    embed = discord.Embed(colour = random.randint(0, 0xffffff))
+    embed.add_field(name="Quote", value=f"\n{random.choice(quotes)}", inline=False)
+    await ctx.send(embed=embed)
+
 @tasks.loop(hours=10)
 async def change_status():
     await client.change_presence(status=discord.Status.online, activity=discord.Game(next(status)))
@@ -328,8 +381,9 @@ async def randReact_off(ctx):
 async def help(ctx):
     embed = discord.Embed(colour = discord.Colour.orange())                             
     embed.set_author(name="Help")
+    embed.add_field(name="!change_prefix [*prefix*]", value="Change the prefix", inline=False)
     embed.add_field(name="!meme", value="Displays a meme", inline=False)
-    embed.add_field(name="!insult (user)", value="Insults designated member", inline=False)
+    embed.add_field(name="!insult (*user*)", value="Insults designated member", inline=False)
     embed.add_field(name="!tell (*user*) [*message*]", value="@ and tells the designated member what you want it to say", inline=False)
     embed.add_field(name="!say [*message*]", value="bot sends the designated message", inline=False)
     embed.add_field(name="!dm (*user*)[*message here]", value="Direct-messages a member of your choice(with name)", inline=False)
@@ -340,12 +394,24 @@ async def help(ctx):
     embed.add_field(name="!kick *member*", value="Kicks a member(if with permission)", inline=False)
     embed.add_field(name="!ban *member*", value="Bans a member(if with permission)", inline=False)
     embed.add_field(name="!unban *member*", value="Unbans a member(if with permission)", inline=False)
+    embed.add_field(name="!help", value="Displays all available commands", inline=False)
+    embed.add_field(name="!devhelp", value="Displays all available commands for developers", inline=False)
+    
+    
+
+    await ctx.send(embed=embed)
+
+@client.command()
+async def devhelp(ctx):
+    embed = discord.Embed(colour = discord.Colour.blue()) 
+    embed.add_field(name="!change_prefix [*prefix*]", value="Change the prefix", inline=False)
+    embed.add_field(name="!getprefix", value="displays the prefix", inline=False)                            
     embed.add_field(name="!randMessage_on", value="allows the bot to send random messages", inline=False)
     embed.add_field(name="!randMessage_off", value="prevents the bot to send random messages", inline=False)
     embed.add_field(name="!randReact_on", value="allows the bot to randomly add a reaction to a message", inline=False)
     embed.add_field(name="!randReact_off", value="prevents the bot from randomly adding a reaction to a message", inline=False)
-    embed.add_field(name="!help", value="Displays all available commands", inline=False)
 
     await ctx.send(embed=embed)
+
 
 client.run(token)
