@@ -5,7 +5,6 @@ Calm Leo has a variety of commands, with a focus on entertainment and pranking o
 All users have access to the following commands!
 | Command                     | Description                                                      |
 |-----------------------------|------------------------------------------------------------------|
-| `change_prefix`             | `change the command prefix` |
 | `meme`                      | `sends a random meme`             |
 | `insult (user)`             | `insults the designated user`                                    |
 | `tell (user) [message]`     | `tells the user your message in the current channel`             | 
@@ -15,6 +14,16 @@ All users have access to the following commands!
 | `pm (user) [message]`       | `pm the user your message(your name not included)`               |
 | `ping`                      | `replies you with your current ping`                             |
 | `8ball [question]`          | `answers your question`                                          |
+| `getprefix`                 | `displays the current command prefix` |
+| `help`                      | `displays all available commands`                                |
+| `devhelp`                   | `displays all available commands for discord mods`               |
+
+
+## Developers/Moderators
+Only admins have access to the following commands!
+| Command                     | Description                                                      |
+|-----------------------------|------------------------------------------------------------------|
+| `change_prefix`             | `change the command prefix`                                      |
 | `clear [*optional* number]` | `clears messages(default is 5 messages)`                         |
 | `kick (user)`               | `kicks the user if you have the appropriate permission`          |
 | `ban (user)`                | `bans the user if you have the appropriate permission`           |
@@ -23,7 +32,6 @@ All users have access to the following commands!
 | `randMessage_off`           | `prevents the bot to reply with random messages`                 |
 | `randReact_on`              | `allows the bot to randomly add a reaction to a message`         |
 | `randReact_off`             | `prevents the bot from randomly adding a reaction to a message`  |
-| `help`                      | `displays all available commands`                                |
 
 
 Also, Calm Leo randomly reacts and responds to users when they post messages. Leo is really good at pranking lol!!!!

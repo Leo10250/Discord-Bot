@@ -182,14 +182,15 @@ async def getprefix(ctx):
 
 @client.command()
 async def change_prefix(ctx, prefix):
-    prefixes = json.load(open("Arrays/prefixes.json", "r"))
-    #default prefix
-    prefixes[str(ctx.guild.id)] = prefix
+    if ctx.message.author.guild_permissions.administrator:
+        prefixes = json.load(open("Arrays/prefixes.json", "r"))
+        #default prefix
+        prefixes[str(ctx.guild.id)] = prefix
 
-    with open("Arrays/prefixes.json" , "w") as f:
-        json.dump(prefixes, f, indent=4)
+        with open("Arrays/prefixes.json" , "w") as f:
+            json.dump(prefixes, f, indent=4)
 
-    await ctx.send(f"The new prefix is now {prefix}")
+        await ctx.send(f"The new prefix is now {prefix}")
 
 @client.command()
 async def ping(ctx):
