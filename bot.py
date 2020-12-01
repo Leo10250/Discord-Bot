@@ -138,7 +138,7 @@ async def on_message(message):
                 last_web = current_web
             await message.channel.send(f"<@{message.author.id}> NO TIME TO EXPLAIN, WE GOTTA GO!\n{websites[current_web]}")
             return
-        elif random_num >= 0.0002 and random_num < 0.0005:
+        elif random_num >= 0.001 and random_num < 0.002:
             await message.channel.send("https://i.chzbgr.com/full/8091158016/h223D6252/sigh-here-we-go-again")
 
     if randReaction == 1:
