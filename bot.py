@@ -47,6 +47,7 @@ randMessage = 1
 
 randReaction = 1
 
+LEVEL_SYSTEM = 1
 
 @client.event
 async def on_guild_join(guild):
@@ -91,11 +92,19 @@ async def on_member_join(member):
         channel = await member.create_dm()
         await channel.send(Joining_Message)
 
-    print(f"{member} has joined!")
+    # if LEVEL_SYSTEM == 1: 
+    #     users = json.load(open("Arrays/users.json", "r"))
+
+    #     await update_data(users, member)
+
+    #     json.dump(users, open("Arrays/users.json", "w"), indent=4)
+
+    # print(f"{member} has joined!")
 
 @client.event
 async def on_member_remove(member):
-    print(f"{member} has left!")
+    # print(f"{member} has left!")
+    ...
 
 last = 15343854848
 last_web = 4138434834
@@ -120,6 +129,18 @@ async def on_message(message):
             await message.channel.send(f"<@{message.author.id}> {CUSTOM_MESSAGE_ON_MESSAGE[current]}")
             return 
 
+    #  BROKEN LEVEL SYSTEM
+
+    # if LEVEL_SYSTEM == 1:
+    #     users = json.load(open("Arrays/users.json", "r"))
+
+    #     await update_data(users, message.author)
+    #     await add_experience(users, message.author, 5)
+    #     await level_up(users, message.author, message.channel)
+
+    #     json.dump(users, open("Arrays/users.json", "w"), indent=4)
+
+
     if randMessage == 1:
         random_num = random.random() 
         if random_num < 0.0001:
@@ -138,8 +159,10 @@ async def on_message(message):
                 last_web = current_web
             await message.channel.send(f"<@{message.author.id}> NO TIME TO EXPLAIN, WE GOTTA GO!\n{websites[current_web]}")
             return
-        elif random_num >= 0.001 and random_num < 0.002:
+        elif random_num >= 0.001 and random_num < 0.0015:
             await message.channel.send("https://i.chzbgr.com/full/8091158016/h223D6252/sigh-here-we-go-again")
+        elif random_num >= 0.0015 and random_num < 0.002:
+            await message.channel.send("https://i.kym-cdn.com/photos/images/original/001/398/111/d5a")
 
     if randReaction == 1:
         if random.random() < 0.01:
@@ -279,6 +302,12 @@ async def unzip(ctx):
     await ctx.channel.purge(limit=1)
     await ctx.send("https://i.chzbgr.com/full/8091158016/h223D6252/sigh-here-we-go-again")
 
+@client.command()
+async def perhaps(ctx):
+    await ctx.channel.purge(limit=1)
+    await ctx.send("https://i.kym-cdn.com/photos/images/original/001/398/111/d5a")
+
+
 @tell.error
 async def say_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument) or isinstance(error, commands.BadArgument):
@@ -400,6 +429,7 @@ async def help(ctx):
     embed.add_field(name="!tell (*user*) [*message*]", value="@ and tells the designated member what you want it to say", inline=False)
     embed.add_field(name="!say [*message*]", value="bot sends the designated message", inline=False)
     embed.add_field(name="!unzip", value="PLEASE DON'T USE IT", inline=False)
+    embed.add_field(name="!perhaps", value="PLEASE DON'T USE IT EITHER", inline=False)
     embed.add_field(name="!dm (*user*)[*message here]", value="Direct-messages a member of your choice(with name)", inline=False)
     embed.add_field(name="!pm (*user*) [*message here*]", value="Private-messages a member of your choice(no name)", inline=False)
     embed.add_field(name="!ping", value="Tells you your ping(most of the times)", inline=False)
@@ -427,5 +457,68 @@ async def devhelp(ctx):
 
     await ctx.send(embed=embed)
 
+# @client.command()
+# async def my_level(ctx):
+#     if LEVEL_SYSTEM == 1:
+#         user_id = str(ctx.message.author.id)
+#         users = json.load(open("Arrays/users.json", "r"))
+#         my_lvl = users[user_id]["level"]
+#         await ctx.send(f"<@{ctx.message.author.id}> You current level is {my_lvl}!")
+#     else:
+#         await ctx.send(f"<@{ctx.message.author.id}> Level System is currently off")
+
+# @client.command(pass_context=True)
+# async def level(ctx, member : discord.Member):
+#     if LEVEL_SYSTEM == 1:
+#         user_id = str(member.id)
+#         users = json.load(open("Arrays/users.json", "r"))
+#         member_lvl = users[user_id]["level"]
+#         await ctx.send(f"{member.mention}'s level is {member_lvl}!")
+#     else:
+#         await ctx.send(f"<@{ctx.message.author.id}> Level System is currently off")
+
+# @client.command()
+# async def level_off(ctx):
+#     if ctx.message.author.guild_permissions.administrator:
+#         global LEVEL_SYSTEM
+#         if(randReaction == 1):
+#             await ctx.send(f"<@{ctx.message.author.id}> Level System is already off...")
+#             return
+#         else:
+#             LEVEL_SYSTEM = 0
+#             await ctx.send("Level System is now off")
+
+# @client.command()
+# async def level_on(ctx):
+#     if ctx.message.author.guild_permissions.administrator:
+#         global LEVEL_SYSTEM
+#         if(randReaction == 1):
+#             await ctx.send(f"<@{ctx.message.author.id}> Level System is already on...")
+#             return
+#         else:
+#             LEVEL_SYSTEM = 1
+#             await ctx.send("Level System is now on")
+
+# async def update_data(users, user):
+#     user_id = str(user.id)
+#     if not user_id in users:
+#         users[user_id] = {}
+#         users[user_id]["experience"] = 0
+#         users[user_id]["level"] = 1
+
+# async def add_experience(users, user, exp):
+#     user_id = str(user.id)
+#     users[user_id]["experience"] += exp
+
+# async def level_up(users, user, channel):
+#     user_id = str(user.id)
+#     experience = users[user_id]["experience"]
+#     level_start = users[user_id]["level"]
+#     level_end = int(experience ** (1/4))
+
+#     if level_start < level_end:
+#         user_id = str(user.id)
+#         await channel.send(f"{user.mention} has leveled up to level {level_end}")
+#         users[user_id]["level"] = level_end
 
 client.run(token)
