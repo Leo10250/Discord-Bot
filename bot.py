@@ -168,7 +168,7 @@ async def on_message(message):
                 await message.channel.send("https://i.kym-cdn.com/photos/images/original/001/398/111/d5a")
 
         if randReaction == 1:
-            if random.random() < 1.1:
+            if random.random() < 0.01:
                 emoji = discord.utils.get(message.guild.emojis, name='pepePanties')
                 if emoji:
                     await message.add_reaction(emoji)
