@@ -111,88 +111,91 @@ last_web = 4138434834
 
 @client.event
 async def on_message(message):
-    if message.author == client.user:
-        return
-    elif message.channel.id == 753045768696234074:
-        return
-
-    global last
-    global last_web
-    if ALLOW_CUSTOM_MESSAGE == "True":
-        print("true")
-        if random.random() < CUSTOM_MESSAGE_CHANCE:
-            print("method worked")
-            current = random.randint(0, len(meter) - 1)
-            while(last == current):
-                current = random.randint(0, len(meter) - 1)
-            last = current
-            await message.channel.send(f"<@{message.author.id}> {CUSTOM_MESSAGE_ON_MESSAGE[current]}")
-            return 
-
-    #  BROKEN LEVEL SYSTEM
-
-    # if LEVEL_SYSTEM == 1:
-    #     users = json.load(open("Arrays/users.json", "r"))
-
-    #     await update_data(users, message.author)
-    #     await add_experience(users, message.author, 5)
-    #     await level_up(users, message.author, message.channel)
-
-    #     json.dump(users, open("Arrays/users.json", "w"), indent=4)
-
-
-    if randMessage == 1:
-        random_num = random.random() 
-        if random_num < 0.0001:
-            current = random.randint(0, len(meter) - 1)
-            # global last
-            while(last == current):
-                current = random.randint(0, len(meter) - 1)
-            last = current
-            await message.channel.send(f"<@{message.author.id}> {meter[current]}")
+    if not "!" in message.content.lower():
+        if message.author.bot:
             return
-        elif random_num >= 0.0001 and random_num < 0.0002:
-            current_web = random.randint(0, len(websites) - 1)
-            # global last_web
-            while(last_web == current_web):
+        if message.author == client.user:
+            return
+        elif message.channel.id == 753045768696234074:
+            return
+
+        global last
+        global last_web
+        if ALLOW_CUSTOM_MESSAGE == "True":
+            print("true")
+            if random.random() < CUSTOM_MESSAGE_CHANCE:
+                print("method worked")
+                current = random.randint(0, len(meter) - 1)
+                while(last == current):
+                    current = random.randint(0, len(meter) - 1)
+                last = current
+                await message.channel.send(f"<@{message.author.id}> {CUSTOM_MESSAGE_ON_MESSAGE[current]}")
+                return 
+
+        #  BROKEN LEVEL SYSTEM
+
+        # if LEVEL_SYSTEM == 1:
+        #     users = json.load(open("Arrays/users.json", "r"))
+
+        #     await update_data(users, message.author)
+        #     await add_experience(users, message.author, 5)
+        #     await level_up(users, message.author, message.channel)
+
+        #     json.dump(users, open("Arrays/users.json", "w"), indent=4)
+
+
+        if randMessage == 1:
+            random_num = random.random() 
+            if random_num < 0.0001:
+                current = random.randint(0, len(meter) - 1)
+                # global last
+                while(last == current):
+                    current = random.randint(0, len(meter) - 1)
+                last = current
+                await message.channel.send(f"<@{message.author.id}> {meter[current]}")
+                return
+            elif random_num >= 0.0001 and random_num < 0.0002:
                 current_web = random.randint(0, len(websites) - 1)
-                last_web = current_web
-            await message.channel.send(f"<@{message.author.id}> NO TIME TO EXPLAIN, WE GOTTA GO!\n{websites[current_web]}")
-            return
-        elif random_num >= 0.001 and random_num < 0.0015:
-            await message.channel.send("https://i.chzbgr.com/full/8091158016/h223D6252/sigh-here-we-go-again")
-        elif random_num >= 0.0015 and random_num < 0.002:
-            await message.channel.send("https://i.kym-cdn.com/photos/images/original/001/398/111/d5a")
-
-    if randReaction == 1:
-        if random.random() < 0.01:
-            emoji = discord.utils.get(message.guild.emojis, name='pepePanties')
-            if emoji:
-                await message.add_reaction(emoji)
+                # global last_web
+                while(last_web == current_web):
+                    current_web = random.randint(0, len(websites) - 1)
+                    last_web = current_web
+                await message.channel.send(f"<@{message.author.id}> NO TIME TO EXPLAIN, WE GOTTA GO!\n{websites[current_web]}")
                 return
-    
-    if "wait it" in message.content.lower():
-        await message.channel.send(f"<@{message.author.id}> Shhhhhhhh \nhttps://i.redd.it/spoaltgn8ud51.jpg")
+            elif random_num >= 0.001 and random_num < 0.0015:
+                await message.channel.send("https://i.chzbgr.com/full/8091158016/h223D6252/sigh-here-we-go-again")
+            elif random_num >= 0.0015 and random_num < 0.002:
+                await message.channel.send("https://i.kym-cdn.com/photos/images/original/001/398/111/d5a")
 
-    if "gay" in message.content.lower():
-        if random.random() < 0.05:
-            await message.channel.send(f"<@{message.author.id}> Leo, is that you?")
+        if randReaction == 1:
+            if random.random() < 1.1:
+                emoji = discord.utils.get(message.guild.emojis, name='pepePanties')
+                if emoji:
+                    await message.add_reaction(emoji)
+                    return
+        
+        if "wait it" in message.content.lower():
+            await message.channel.send(f"<@{message.author.id}> Shhhhhhhh \nhttps://i.redd.it/spoaltgn8ud51.jpg")
 
-    if message.content.startswith("hello"):
-        if random.random() < 0.25:
-            await message.channel.send(f"<@{message.author.id}> {random.choice(greetings)}")
-            return
+        if "gay" in message.content.lower():
+            if random.random() < 0.05:
+                await message.channel.send(f"<@{message.author.id}> Leo, is that you?")
 
-    for i in words:
-        if i in message.content.lower():
+        if message.content.startswith("hello"):
+            if random.random() < 0.25:
+                await message.channel.send(f"<@{message.author.id}> {random.choice(greetings)}")
+                return
+
+        for i in words:
+            if i in message.content.lower():
+                if random.random() < 0.01:
+                    await message.channel.send(f"<@{message.author.id}> stfu")
+                    return
+
+        if "among us" in message.content.lower():
             if random.random() < 0.01:
-                await message.channel.send(f"<@{message.author.id}> stfu")
+                await message.channel.send(f"<@{message.author.id}> you are getting voted off rn bro.")
                 return
-
-    if "among us" in message.content.lower():
-        if random.random() < 0.01:
-            await message.channel.send(f"<@{message.author.id}> you are getting voted off rn bro.")
-            return
 
     await client.process_commands(message)
 
