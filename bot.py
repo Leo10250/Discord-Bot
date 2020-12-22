@@ -166,6 +166,8 @@ async def on_message(message):
                 await message.channel.send("https://i.chzbgr.com/full/8091158016/h223D6252/sigh-here-we-go-again")
             elif random_num >= 0.0015 and random_num < 0.002:
                 await message.channel.send("https://i.kym-cdn.com/photos/images/original/001/398/111/d5a")
+            elif random_num >= 0.002 and random_num < 0.0025:
+                await message.channel.send("https://memegenerator.net/img/instances/58910158.jpg")
 
         if randReaction == 1:
             if random.random() < 0.01:
