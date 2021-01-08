@@ -176,8 +176,8 @@ async def on_message(message):
                     await message.add_reaction(emoji)
                     return
         
-        if "wait it" in message.content.lower():
-            await message.channel.send(f"<@{message.author.id}> Shhhhhhhh \nhttps://i.redd.it/spoaltgn8ud51.jpg")
+        # if "wait it" in message.content.lower():
+        #     await message.channel.send(f"<@{message.author.id}> Shhhhhhhh \nhttps://i.redd.it/spoaltgn8ud51.jpg")
 
         if "gay" in message.content.lower():
             if random.random() < 0.05:
