@@ -269,6 +269,15 @@ async def ban_error(ctx, error):
         await ctx.send(f"<@{ctx.message.author.id}> You do not have the permission to ban members.")
 
 @client.command()
+async def video(ctx):
+    current_web = random.randint(0, len(websites) - 1)
+    global last_web
+    while(last_web == current_web):
+        current_web = random.randint(0, len(websites) - 1)
+        last_web = current_web
+    await ctx.send(f"<@{ctx.message.author.id}> NO TIME TO EXPLAIN, WE GOTTA GO!\n{websites[current_web]}")
+
+@client.command()
 @commands.has_permissions(ban_members=True)
 async def unban(ctx, *, member):
     banned_users = await ctx.guild.bans()
