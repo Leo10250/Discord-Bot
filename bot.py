@@ -275,7 +275,7 @@ async def video(ctx):
     while(last_web == current_web):
         current_web = random.randint(0, len(websites) - 1)
         last_web = current_web
-    await ctx.send(f"<@{ctx.message.author.id}> NO TIME TO EXPLAIN, WE GOTTA GO!\n{websites[current_web]}")
+    await ctx.send(f"{websites[current_web]}")
 
 @client.command()
 @commands.has_permissions(ban_members=True)
