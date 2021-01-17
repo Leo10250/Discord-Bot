@@ -5,6 +5,7 @@ import random
 from discord.ext import commands, tasks
 from discord.utils import find
 from itertools import cycle
+from requests import get
 
 def get_prefix(client, message):
     with open("Arrays/prefixes.json", "r") as f:
@@ -48,6 +49,10 @@ randMessage = 1
 randReaction = 1
 
 LEVEL_SYSTEM = 1
+
+headers = {'User-Agent': 'Calm Leo Bot Version 1.0'}
+
+reddit_post = get('https://www.reddit.com/r/gonewild/random.json', headers = headers).json()
 
 @client.event
 async def on_guild_join(guild):
@@ -162,12 +167,12 @@ async def on_message(message):
                     last_web = current_web
                 await message.channel.send(f"<@{message.author.id}> NO TIME TO EXPLAIN, WE GOTTA GO!\n{websites[current_web]}")
                 return
-            elif random_num >= 0.001 and random_num < 0.0015:
-                await message.channel.send("https://i.chzbgr.com/full/8091158016/h223D6252/sigh-here-we-go-again")
-            elif random_num >= 0.0015 and random_num < 0.002:
-                await message.channel.send("https://i.kym-cdn.com/photos/images/original/001/398/111/d5a")
-            elif random_num >= 0.002 and random_num < 0.0025:
-                await message.channel.send("https://memegenerator.net/img/instances/58910158.jpg")
+            # elif random_num >= 0.001 and random_num < 0.0015:
+            #     await message.channel.send("https://i.chzbgr.com/full/8091158016/h223D6252/sigh-here-we-go-again")
+            # elif random_num >= 0.0015 and random_num < 0.002:
+            #     await message.channel.send("https://i.kym-cdn.com/photos/images/original/001/398/111/d5a")
+            # elif random_num >= 0.002 and random_num < 0.0025:
+            #     await message.channel.send("https://memegenerator.net/img/instances/58910158.jpg")
 
         if randReaction == 1:
             if random.random() < 0.01:
@@ -470,6 +475,14 @@ async def devhelp(ctx):
     embed.add_field(name="!randReact_off", value="prevents the bot from randomly adding a reaction to a message", inline=False)
 
     await ctx.send(embed=embed)
+
+@client.command()
+async def anime(ctx):
+    reddit_post = get('https://www.reddit.com/r/animememes/random.json').json()
+    await ctx.send(reddit_post[0]['data']['children'][0]['data']['url'])
+    # reddit_post = get('https://www.reddit.com/r/gonewild/random.json').json()
+    # await ctx.send(reddit_post[0]['data']['children'][0]['data']['url'])
+
 
 # @client.command()
 # async def my_level(ctx):
