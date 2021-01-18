@@ -372,7 +372,7 @@ async def meme(ctx):
                     await ctx.send(reddit_post[0]['data']['children'][0]['data']['url'])
                 except:
                     error = 1
-                    if(i >= 50):
+                    if(i >= 5):
                         #print("end")
                         await ctx.send(f"Hmmmm. Something went wrong)\n-brought to you by this command has failed **{i}** times gang")
                         return
@@ -396,7 +396,7 @@ async def meme(ctx):
                     await ctx.send(reddit_post[0]['data']['children'][0]['data']['url'])
                 except:
                     error = 1
-                    if(i >= 50):
+                    if(i >= 5):
                         #print("end")
                         await ctx.send(f"Hmmmm. Something went wrong)\n-brought to you by this command has failed **{i}** times gang")
                         return
@@ -504,7 +504,7 @@ async def waifu(ctx):
                 await ctx.send(reddit_post[0]['data']['children'][0]['data']['url'])
             except:
                 error = 1
-                if(i >= 50):
+                if(i >= 5):
                     #print("end")
                     await ctx.send(f"Hmmmm. Something went wrong)\n-brought to you by this command has failed **{i}** times gang")
                     return
@@ -532,7 +532,7 @@ async def reddit(ctx, *, name):
                 await ctx.send(reddit_post[0]['data']['children'][0]['data']['url'])
             except:
                 error = 1
-                if(i >= 50):
+                if(i >= 5):
                     #print("end")
                     await ctx.send(f"Either this subreddit doesn't exist or I am too dumb.\nIt's probably the latter ;)\n-brought to you by this command has failed **{i}** times gang")
                     return
