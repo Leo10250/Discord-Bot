@@ -354,8 +354,58 @@ async def on_command_error(ctx, error):
 
 @client.command(pass_context=True)
 async def meme(ctx):
-    memes = json.load(open("Arrays/memes.json", "r"))["memes"]
-    await ctx.send(random.choice(memes))
+    num = random.random()
+    if(num <= 0.3):
+        memes = json.load(open("Arrays/memes.json", "r"))["memes"]
+        await ctx.send(random.choice(memes))
+    elif(num > 0.3 and num <= 0.6): 
+        i = 0
+        error = 0
+        #print(f"https://www.reddit.com/r/{names}/random.json")
+        reddit_post = get(f"https://www.reddit.com/r/memes/random.json").json()
+        try:
+            error = 0
+            await ctx.send(reddit_post[0]['data']['children'][0]['data']['url'])
+        except:
+            error = 1
+            while(error != 0):
+                reddit_post = get(f"https://www.reddit.com/r/memes/random.json").json()
+                try:
+                    error = 0
+                    await ctx.send(reddit_post[0]['data']['children'][0]['data']['url'])
+                except:
+                    error = 1
+                    if(i >= 50):
+                        #print("end")
+                        await ctx.send(f"Hmmmm. Something went wrong)\n-brought to you by this command has failed **{i}** times gang")
+                        return
+                    i = i + 1
+                    #print(f"Wrong\n {i}")
+        #print("sent")
+    else:
+        i = 0
+        error = 0
+        #print(f"https://www.reddit.com/r/{names}/random.json")
+        reddit_post = get(f"https://www.reddit.com/r/dankmemes/random.json").json()
+        try:
+            error = 0
+            await ctx.send(reddit_post[0]['data']['children'][0]['data']['url'])
+        except:
+            error = 1
+            while(error != 0):
+                reddit_post = get(f"https://www.reddit.com/r/dankmemes/random.json").json()
+                try:
+                    error = 0
+                    await ctx.send(reddit_post[0]['data']['children'][0]['data']['url'])
+                except:
+                    error = 1
+                    if(i >= 50):
+                        #print("end")
+                        await ctx.send(f"Hmmmm. Something went wrong)\n-brought to you by this command has failed **{i}** times gang")
+                        return
+                    i = i + 1
+                    #print(f"Wrong\n {i}")
+        #print("sent")
 
 @client.command(pass_context=True)
 async def quote(ctx):
