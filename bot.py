@@ -55,6 +55,11 @@ headers = {'User-Agent': 'Calm Leo Bot Version 1.0'}
 reddit_post = get('https://www.reddit.com/r/gonewild/random.json', headers = headers).json()
 
 @client.event
+async def on_ready():
+    change_status.start()
+    print("Bot is online!")
+
+@client.event
 async def on_guild_join(guild):
     with open("Arrays/prefixes.json", "r") as f:
         prefixes = json.load(f)
@@ -79,10 +84,7 @@ async def on_guild_remove(guild):
     with open("Arrays/prefixes.json" , "w") as f:
         json.dump(prefixes, f, indent=4)
 
-@client.event
-async def on_ready():
-    change_status.start()
-    print("Bot is online!")
+
 
 @client.event
 async def on_member_join(member):
@@ -436,116 +438,108 @@ async def randReact_off(ctx):
         await ctx.send(f"<@{ctx.message.author.id}> Random_Message is now off!")
     else:
         await ctx.send(f"<@{ctx.message.author.id}> You don't have the permission to disable Random_Reaction.")  
-    
+
+@client.command()
+async def waifu(ctx):
+    i = 0
+    error = 0
+    reddit_post = get('https://www.reddit.com/r/waifu/random.json').json()
+    try:
+        error = 0
+        await ctx.send(reddit_post[0]['data']['children'][0]['data']['url'])
+    except:
+        error = 1
+        while(error != 0):
+            reddit_post = get('https://www.reddit.com/r/waifu/random.json').json()
+            try:
+                error = 0
+                await ctx.send(reddit_post[0]['data']['children'][0]['data']['url'])
+            except:
+                error = 1
+                if(i >= 50):
+                    #print("end")
+                    await ctx.send(f"Hmmmm. Something went wrong)\n-brought to you by this command has failed **{i}** times gang")
+                    return
+                i = i + 1
+                #print("Wrong")
+
+
+@client.command()
+async def reddit(ctx, *, name):
+    names = name.replace(" ", "")
+    i = 0
+    error = 0
+    #print(f"https://www.reddit.com/r/{names}/random.json")
+    reddit_post = get(f"https://www.reddit.com/r/{names}/random.json").json()
+    try:
+        error = 0
+        await ctx.send(reddit_post[0]['data']['children'][0]['data']['url'])
+    except:
+        error = 1
+        while(error != 0):
+            reddit_post = get(f"https://www.reddit.com/r/{names}/random.json").json()
+            try:
+                error = 0
+                await ctx.send(reddit_post[0]['data']['children'][0]['data']['url'])
+            except:
+                error = 1
+                if(i >= 50):
+                    #print("end")
+                    await ctx.send(f"Either this subreddit doesn't exist or I am too dumb.\nIt's probably the latter ;)\n-brought to you by this command has failed **{i}** times gang")
+                    return
+                i = i + 1
+                #print(f"Wrong\n {i}")
+    #print("sent")
 
 @client.command()
 async def help(ctx):
     embed = discord.Embed(colour = discord.Colour.orange())                             
     embed.set_author(name="Help")
-    embed.add_field(name="!change_prefix [*prefix*]", value="Change the prefix", inline=False)
-    embed.add_field(name="!meme", value="Displays a meme", inline=False)
-    embed.add_field(name="!insult (*user*)", value="Insults designated member", inline=False)
-    embed.add_field(name="!tell (*user*) [*message*]", value="@ and tells the designated member what you want it to say", inline=False)
-    embed.add_field(name="!say [*message*]", value="bot sends the designated message", inline=False)
-    embed.add_field(name="!unzip", value="PLEASE DON'T USE IT", inline=False)
-    embed.add_field(name="!perhaps", value="PLEASE DON'T USE IT EITHER", inline=False)
-    embed.add_field(name="!dm (*user*)[*message here]", value="Direct-messages a member of your choice(with name)", inline=False)
-    embed.add_field(name="!pm (*user*) [*message here*]", value="Private-messages a member of your choice(no name)", inline=False)
-    embed.add_field(name="!ping", value="Tells you your ping(most of the times)", inline=False)
-    embed.add_field(name="!8ball *question here*", value="Answers your question", inline=False)
-    embed.add_field(name="!clear", value="Clears a desginated number of messages", inline=False)
-    embed.add_field(name="!kick *member*", value="Kicks a member(if with permission)", inline=False)
-    embed.add_field(name="!ban *member*", value="Bans a member(if with permission)", inline=False)
-    embed.add_field(name="!unban *member*", value="Unbans a member(if with permission)", inline=False)
-    embed.add_field(name="!help", value="Displays all available commands", inline=False)
-    embed.add_field(name="!devhelp", value="Displays all available commands for developers", inline=False)
+    embed.add_field(name="!change_prefix [*prefix*]", value="Change the prefix", inline=True)
+    embed.add_field(name="!reddit [*subreddit name*]", value="Image from that subreddit", inline=True)
+    embed.add_field(name="!waifu", value="WAIFU", inline=True)
+    embed.add_field(name="!meme", value="Displays a meme", inline=True)
+    embed.add_field(name="!insult (*user*)", value="Insults designated member", inline=True)
+    embed.add_field(name="!tell (*user*) [*message*]", value="@ and tells the designated member what you want it to say", inline=True)
+    embed.add_field(name="!say [*message*]", value="bot sends the designated message", inline=True)
+    embed.add_field(name="!unzip", value="PLEASE DON'T USE IT", inline=True)
+    embed.add_field(name="!perhaps", value="PLEASE DON'T USE IT EITHER", inline=True)
+    embed.add_field(name="!dm (*user*)[*message here]", value="Direct-messages a member of your choice(with name)", inline=True)
+    embed.add_field(name="!pm (*user*) [*message here*]", value="Private-messages a member of your choice(no name)", inline=True)
+    embed.add_field(name="!ping", value="Tells you your ping(most of the times)", inline=True)
+    embed.add_field(name="!8ball *question here*", value="Answers your question", inline=True)
+    embed.add_field(name="!help", value="Displays all available commands", inline=True)
+    embed.add_field(name="!modhelp", value="Displays all available commands for moderators", inline=True)
+    embed.add_field(name="!devhelp", value="Displays all available commands for developers", inline=True)
     
     
 
     await ctx.send(embed=embed)
+
+@client.command()
+async def modhelp(ctx):
+    embed = discord.Embed(colour = discord.Colour.red()) 
+    embed.add_field(name="!clear", value="Clears a desginated number of messages", inline=True)
+    embed.add_field(name="!kick *member*", value="Kicks a member(if with permission)", inline=True)
+    embed.add_field(name="!ban *member*", value="Bans a member(if with permission)", inline=True)
+    embed.add_field(name="!unban *member*", value="Unbans a member(if with permission)", inline=True)
+
+    await ctx.send(embed=embed)
+
+
 
 @client.command()
 async def devhelp(ctx):
     embed = discord.Embed(colour = discord.Colour.blue()) 
-    embed.add_field(name="!change_prefix [*prefix*]", value="Change the prefix", inline=False)
-    embed.add_field(name="!getprefix", value="displays the prefix", inline=False)                            
-    embed.add_field(name="!randMessage_on", value="allows the bot to send random messages", inline=False)
-    embed.add_field(name="!randMessage_off", value="prevents the bot to send random messages", inline=False)
-    embed.add_field(name="!randReact_on", value="allows the bot to randomly add a reaction to a message", inline=False)
-    embed.add_field(name="!randReact_off", value="prevents the bot from randomly adding a reaction to a message", inline=False)
+    embed.add_field(name="!change_prefix [*prefix*]", value="Change the prefix", inline=True)
+    embed.add_field(name="!getprefix", value="displays the prefix", inline=True)                            
+    embed.add_field(name="!randMessage_on", value="allows the bot to send random messages", inline=True)
+    embed.add_field(name="!randMessage_off", value="prevents the bot to send random messages", inline=True)
+    embed.add_field(name="!randReact_on", value="allows the bot to randomly add a reaction to a message", inline=True)
+    embed.add_field(name="!randReact_off", value="prevents the bot from randomly adding a reaction to a message", inline=True)
 
     await ctx.send(embed=embed)
 
-@client.command()
-async def anime(ctx):
-    reddit_post = get('https://www.reddit.com/r/animememes/random.json').json()
-    await ctx.send(reddit_post[0]['data']['children'][0]['data']['url'])
-    # reddit_post = get('https://www.reddit.com/r/gonewild/random.json').json()
-    # await ctx.send(reddit_post[0]['data']['children'][0]['data']['url'])
 
-
-# @client.command()
-# async def my_level(ctx):
-#     if LEVEL_SYSTEM == 1:
-#         user_id = str(ctx.message.author.id)
-#         users = json.load(open("Arrays/users.json", "r"))
-#         my_lvl = users[user_id]["level"]
-#         await ctx.send(f"<@{ctx.message.author.id}> You current level is {my_lvl}!")
-#     else:
-#         await ctx.send(f"<@{ctx.message.author.id}> Level System is currently off")
-
-# @client.command(pass_context=True)
-# async def level(ctx, member : discord.Member):
-#     if LEVEL_SYSTEM == 1:
-#         user_id = str(member.id)
-#         users = json.load(open("Arrays/users.json", "r"))
-#         member_lvl = users[user_id]["level"]
-#         await ctx.send(f"{member.mention}'s level is {member_lvl}!")
-#     else:
-#         await ctx.send(f"<@{ctx.message.author.id}> Level System is currently off")
-
-# @client.command()
-# async def level_off(ctx):
-#     if ctx.message.author.guild_permissions.administrator:
-#         global LEVEL_SYSTEM
-#         if(randReaction == 1):
-#             await ctx.send(f"<@{ctx.message.author.id}> Level System is already off...")
-#             return
-#         else:
-#             LEVEL_SYSTEM = 0
-#             await ctx.send("Level System is now off")
-
-# @client.command()
-# async def level_on(ctx):
-#     if ctx.message.author.guild_permissions.administrator:
-#         global LEVEL_SYSTEM
-#         if(randReaction == 1):
-#             await ctx.send(f"<@{ctx.message.author.id}> Level System is already on...")
-#             return
-#         else:
-#             LEVEL_SYSTEM = 1
-#             await ctx.send("Level System is now on")
-
-# async def update_data(users, user):
-#     user_id = str(user.id)
-#     if not user_id in users:
-#         users[user_id] = {}
-#         users[user_id]["experience"] = 0
-#         users[user_id]["level"] = 1
-
-# async def add_experience(users, user, exp):
-#     user_id = str(user.id)
-#     users[user_id]["experience"] += exp
-
-# async def level_up(users, user, channel):
-#     user_id = str(user.id)
-#     experience = users[user_id]["experience"]
-#     level_start = users[user_id]["level"]
-#     level_end = int(experience ** (1/4))
-
-#     if level_start < level_end:
-#         user_id = str(user.id)
-#         await channel.send(f"{user.mention} has leveled up to level {level_end}")
-#         users[user_id]["level"] = level_end
 
 client.run(token)
