@@ -50,10 +50,6 @@ randReaction = 1
 
 LEVEL_SYSTEM = 1
 
-headers = {'User-Agent': 'Calm Leo Bot Version 1.0'}
-
-reddit_post = get('https://www.reddit.com/r/gonewild/random.json', headers = headers).json()
-
 @client.event
 async def on_ready():
     change_status.start()
@@ -354,6 +350,7 @@ async def on_command_error(ctx, error):
 
 @client.command(pass_context=True)
 async def meme(ctx):
+    headers = {'User-Agent': 'Calm Leo Bot Version 1.0'}
     num = random.random()
     if(num <= 0.3):
         memes = json.load(open("Arrays/memes.json", "r"))["memes"]
@@ -362,14 +359,14 @@ async def meme(ctx):
         i = 0
         error = 0
         #print(f"https://www.reddit.com/r/{names}/random.json")
-        reddit_post = get(f"https://www.reddit.com/r/memes/random.json").json()
+        reddit_post = get(f"https://www.reddit.com/r/memes/random.json", headers = headers).json()
         try:
             error = 0
             await ctx.send(reddit_post[0]['data']['children'][0]['data']['url'])
         except:
             error = 1
             while(error != 0):
-                reddit_post = get(f"https://www.reddit.com/r/memes/random.json").json()
+                reddit_post = get(f"https://www.reddit.com/r/memes/random.json", headers = headers).json()
                 try:
                     error = 0
                     await ctx.send(reddit_post[0]['data']['children'][0]['data']['url'])
@@ -386,14 +383,14 @@ async def meme(ctx):
         i = 0
         error = 0
         #print(f"https://www.reddit.com/r/{names}/random.json")
-        reddit_post = get(f"https://www.reddit.com/r/dankmemes/random.json").json()
+        reddit_post = get(f"https://www.reddit.com/r/dankmemes/random.json", headers = headers).json()
         try:
             error = 0
             await ctx.send(reddit_post[0]['data']['children'][0]['data']['url'])
         except:
             error = 1
             while(error != 0):
-                reddit_post = get(f"https://www.reddit.com/r/dankmemes/random.json").json()
+                reddit_post = get(f"https://www.reddit.com/r/dankmemes/random.json", headers = headers).json()
                 try:
                     error = 0
                     await ctx.send(reddit_post[0]['data']['children'][0]['data']['url'])
@@ -491,16 +488,17 @@ async def randReact_off(ctx):
 
 @client.command()
 async def waifu(ctx):
+    headers = {'User-Agent': 'Calm Leo Bot Version 1.0'}
     i = 0
     error = 0
-    reddit_post = get('https://www.reddit.com/r/waifu/random.json').json()
+    reddit_post = get('https://www.reddit.com/r/waifu/random.json', headers = headers).json()
     try:
         error = 0
         await ctx.send(reddit_post[0]['data']['children'][0]['data']['url'])
     except:
         error = 1
         while(error != 0):
-            reddit_post = get('https://www.reddit.com/r/waifu/random.json').json()
+            reddit_post = get('https://www.reddit.com/r/waifu/random.json', headers = headers).json()
             try:
                 error = 0
                 await ctx.send(reddit_post[0]['data']['children'][0]['data']['url'])
@@ -516,18 +514,19 @@ async def waifu(ctx):
 
 @client.command()
 async def reddit(ctx, *, name):
+    headers = {'User-Agent': 'Calm Leo Bot Version 1.0'}
     names = name.replace(" ", "")
     i = 0
     error = 0
     #print(f"https://www.reddit.com/r/{names}/random.json")
-    reddit_post = get(f"https://www.reddit.com/r/{names}/random.json").json()
+    reddit_post = get(f"https://www.reddit.com/r/{names}/random.json", headers = headers).json()
     try:
         error = 0
         await ctx.send(reddit_post[0]['data']['children'][0]['data']['url'])
     except:
         error = 1
         while(error != 0):
-            reddit_post = get(f"https://www.reddit.com/r/{names}/random.json").json()
+            reddit_post = get(f"https://www.reddit.com/r/{names}/random.json", headers = headers).json()
             try:
                 error = 0
                 await ctx.send(reddit_post[0]['data']['children'][0]['data']['url'])
