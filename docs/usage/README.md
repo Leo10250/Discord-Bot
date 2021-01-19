@@ -6,6 +6,8 @@ All users have access to the following commands!
 | Command                     | Description                                                      |
 |-----------------------------|------------------------------------------------------------------|
 | `meme`                      | `sends a random meme`             |
+| `reddit (subreddit name)`   | `Pulls one random post from the subreddit`                       |
+| `waifu`                     | `Random waifus images`                                    |
 | `insult (user)`             | `insults the designated user`                                    |
 | `tell (user) [message]`     | `tells the user your message in the current channel`             | 
 | `say [message]`             | `bot sends the designated message` |
@@ -17,7 +19,8 @@ All users have access to the following commands!
 | `8ball [question]`          | `answers your question`                                          |
 | `getprefix`                 | `displays the current command prefix` |
 | `help`                      | `displays all available commands`                                |
-| `devhelp`                   | `displays all available commands for discord mods`               |
+| `devhelp`                   | `displays all available commands for discord developers`               |
+| `modhelp`                   | `displays all available commands for discord mods`                                    |
 
 
 ## Developers/Moderators

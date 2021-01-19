@@ -557,6 +557,7 @@ async def help(ctx):
     embed.add_field(name="!reddit [*subreddit name*]", value="Image from that subreddit", inline=True)
     embed.add_field(name="!waifu", value="WAIFU", inline=True)
     embed.add_field(name="!meme", value="Displays a meme", inline=True)
+    embed.add_field(name="!youtube", value="Random YouTube video", inline=True)
     embed.add_field(name="!insult (*user*)", value="Insults designated member", inline=True)
     embed.add_field(name="!tell (*user*) [*message*]", value="@ and tells the designated member what you want it to say", inline=True)
     embed.add_field(name="!say [*message*]", value="bot sends the designated message", inline=True)
