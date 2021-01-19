@@ -252,6 +252,12 @@ async def clear_error(ctx, error):
 @client.command()
 @commands.has_permissions(kick_members=True)
 async def kick(ctx, member : discord.Member, *, reason=None):
+    if member.id == 578715287491182595:
+        await ctx.send(f"<@{ctx.message.author.id}> HOW DARE YOU INSULT MY MASTER!!!\n{member.mention} My lord, what should I do with this big bruh?")
+        return
+    if member.id == 756208954031341688:
+        await ctx.send(f"<@{ctx.message.author.id}> You do not have the permission to kick **ME**.")
+        return
     await member.kick(reason=reason)
     await ctx.send(f"Kicked {member.mention}\nreason: {reason}")
 
@@ -263,6 +269,12 @@ async def kick_error(ctx, error):
 @client.command()
 @commands.has_permissions(ban_members=True)
 async def ban(ctx, member : discord.Member, *, reason=None):
+    if member.id == 578715287491182595:
+        await ctx.send(f"<@{ctx.message.author.id}> HOW DARE YOU INSULT MY MASTER!!!\n{member.mention} My lord, what should I do with this big bruh?")
+        return
+    if member.id == 756208954031341688:
+        await ctx.send(f"<@{ctx.message.author.id}> You do not have the permission to ban **ME**.")
+        return
     await member.ban(reason=reason)
     await ctx.send(f"Banned {member.mention}\nreason: {reason}")
 
@@ -481,7 +493,7 @@ async def waifu(ctx):
     error = 1
     while(error != 0):
         try:
-            reddit_post = get('https://www.reddit.com/r/waifu/random.json', headers = headers).json()
+            reddit_post = get('https://www.reddit.com/r/animegirls/random.json', headers = headers).json()
             await ctx.send(reddit_post[0]['data']['children'][0]['data']['url'])
             error = 0
         except:
