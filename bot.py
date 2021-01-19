@@ -529,6 +529,27 @@ async def reddit(ctx, *, name):
     #print("sent")
 
 @client.command()
+async def youtube(ctx):
+    headers = {'User-Agent': 'Calm Leo Bot Version 1.0'}
+    i = 0
+    error = 1
+    #print(f"https://www.reddit.com/r/{names}/random.json")
+    while(error != 0):
+        try:
+            reddit_post = get(f"https://www.reddit.com/r/deepintoyoutube/random.json", headers = headers).json()
+            await ctx.send(reddit_post[0]['data']['children'][0]['data']['url'])
+            error = 0
+        except:
+            error = 1
+            if(i >= 5):
+                #print("end")
+                await ctx.send(f"Either this subreddit doesn't exist or I am too dumb.\nIt's probably the latter ;)\n-brought to you by this command has failed **{i}** times gang")
+                return
+            i = i + 1
+            #print(f"Wrong\n {i}")
+    #print("sent")
+
+@client.command()
 async def help(ctx):
     embed = discord.Embed(colour = discord.Colour.orange())                             
     embed.set_author(name="Help")
