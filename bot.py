@@ -411,7 +411,7 @@ async def quote(ctx):
     embed.add_field(name="Quote", value=f"\n{random.choice(quotes)}", inline=False)
     await ctx.send(embed=embed)
 
-@tasks.loop(hours=10)
+@tasks.loop(seconds=10)
 async def change_status():
     await client.change_presence(status=discord.Status.online, activity=discord.Game(next(status)))
 
