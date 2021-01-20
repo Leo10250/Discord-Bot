@@ -560,35 +560,37 @@ async def ud(ctx, *, term):
     i = -1
     j = -1
     temp = 0
-    print(f"{term}\n\n")
-    for d in defs:
-        i += 1
-        print(f"{d.upvotes} > {temp}")
-        if(d.upvotes > temp):
-            print("True")
-            print(f"j = {j} => j = {j+1}")
-            j = i
-            temp = d.upvotes
-        print(f"i = {i}\n")
+    try:
+        for d in defs:
+            i += 1
+            if(d.upvotes > temp):
+                j = i
+                temp = d.upvotes
 
-    i = 0
-    for d in defs:
-        if(i == j):
-            embed = discord.Embed(colour = discord.Colour.green())
-            embed.set_footer(text=f"{d.upvotes} upvotes")
-            # embed.set_author(name=f"{term}")                             
-            embed.add_field(name=f"{term.upper()}", value=f"{d.definition}", inline=True)
-            await ctx.send(embed=embed)
-            return
-        i = i + 1
+        i = 0
+        for d in defs:
+            if(i == j):
+                embed = discord.Embed(colour = discord.Colour.green())
+                embed.set_footer(text=f"{d.upvotes} upvotes")
+                # embed.set_author(name=f"{term}")                             
+                embed.add_field(name=f"{term.upper()}", value=f"{d.definition}", inline=True)
+                await ctx.send(embed=embed)
+                return
+            i = i + 1
 
-        # embed = discord.Embed(colour = discord.Colour.green())
-        # embed.set_footer(text=f"{d.upvotes} upvotes")
-        # # embed.set_author(name=f"{term}")                             
-        # embed.add_field(name=f"{term.upper()}", value=f"{d.definition}", inline=True)
-        # await ctx.send(embed=embed)
+        #error handling
+        embed = discord.Embed(colour = discord.Colour.green())
+        embed.set_footer(text=f"Something went wrong and I am extremely sorry\n┬─┬ ノ( ゜-゜ノ)")                         
+        embed.add_field(name=f"I DON'T FUCKING KNOW!", value=f"Go google it yourself you lazy piece of bruh\n(╯°□°）╯︵ ┻━┻", inline=True)
+        await ctx.send(embed=embed)
 
+    except:
+        embed = discord.Embed(colour = discord.Colour.green())
+        embed.set_footer(text=f"Something went wrong and I am extremely sorry\n┬─┬ ノ( ゜-゜ノ)")                        
+        embed.add_field(name=f"I DON'T FUCKING KNOW!", value=f"Go google it yourself you lazy piece of bruh\n(╯°□°）╯︵ ┻━┻", inline=True)
+        await ctx.send(embed=embed)
 
+    
 @client.command()
 async def help(ctx):
     embed = discord.Embed(colour = discord.Colour.orange())                             
