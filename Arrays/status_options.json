@@ -1,3 +1,5 @@
 {
-    "playing": ["your feeling", "hentai", "!help"]
+    "activity": ["your feeling", "!help", "anime"],
+
+    "status": ["idle", "online", "dnd"]
 }

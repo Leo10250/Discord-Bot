@@ -6,6 +6,8 @@ from discord.ext import commands, tasks
 from discord.utils import find
 from itertools import cycle
 from requests import get
+from udpy import UrbanClient
+
 
 def get_prefix(client, message):
     with open("Arrays/prefixes.json", "r") as f:
@@ -26,7 +28,9 @@ meter = json.load(open("Arrays/random_responses.json", "r"))["responses"]["rando
 
 greetings = json.load(open("Arrays/random_responses.json", "r"))["responses"]["random_greetings"]
 
-status = cycle(json.load(open("Arrays/status_options.json", "r"))["playing"])
+activity = cycle(json.load(open("Arrays/status_options.json", "r"))["activity"])
+
+status = cycle(json.load(open("Arrays/status_options.json", "r"))["status"])
 
 offend = json.load(open("Arrays/Insult.json", "r"))["bad"]
 
@@ -52,8 +56,8 @@ LEVEL_SYSTEM = 1
 
 @client.event
 async def on_ready():
-    change_status.start()
     print("Bot is online!")
+    change_status.start()
 
 @client.event
 async def on_guild_join(guild):
@@ -413,7 +417,7 @@ async def quote(ctx):
 
 @tasks.loop(seconds=10)
 async def change_status():
-    await client.change_presence(status=discord.Status.online, activity=discord.Game(next(status)))
+    await client.change_presence(status=discord.Status.idle, activity=discord.Game(next(activity)))
 
 def obtain_id(ctx):
     return ctx.author.id
@@ -550,17 +554,39 @@ async def youtube(ctx):
     #print("sent")
 
 @client.command()
+async def ud(ctx, *, term):
+    clients = UrbanClient()
+    defs = clients.get_definition(term)
+    i = 0
+    for d in defs:
+        if(i == 1):
+            return
+        embed = discord.Embed(colour = discord.Colour.green())
+        embed.set_footer(text=f"{d.upvotes} upvotes")
+        # embed.set_author(name=f"{term}")                             
+        embed.add_field(name=f"{term.upper()}", value=f"{d.definition}", inline=True)
+        
+        # names = name.replace(" ", "")
+        d
+        await ctx.send(embed=embed)
+        i = i + 1
+    
+
+
+@client.command()
 async def help(ctx):
     embed = discord.Embed(colour = discord.Colour.orange())                             
-    embed.set_author(name="Help")
+    embed.set_author(name="Calm Leo", icon_url = "https://i.pinimg.com/originals/8f/90/39/8f90394879fd28a09e09bf4faf7ee017.jpg")
+    embed.set_thumbnail(url="https://i.pinimg.com/originals/8f/90/39/8f90394879fd28a09e09bf4faf7ee017.jpg")
     embed.add_field(name="!change_prefix [*prefix*]", value="Change the prefix", inline=True)
     embed.add_field(name="!reddit [*subreddit name*]", value="Image from that subreddit", inline=True)
+    embed.add_field(name="!ud (*word*)", value="Looks up the word on urban dictionary", inline=True)
     embed.add_field(name="!waifu", value="WAIFU", inline=True)
     embed.add_field(name="!meme", value="Displays a meme", inline=True)
     embed.add_field(name="!video", value="Quality meme videos", inline=True)
     embed.add_field(name="!youtube", value="Random YouTube videos", inline=True)
     embed.add_field(name="!insult (*user*)", value="Insults designated member", inline=True)
-    embed.add_field(name="!tell (*user*) [*message*]", value="@ and tells the designated member what you want it to say", inline=True)
+    embed.add_field(name="!tell (*user*) [*message*]", value="@ and tells the designated member a message", inline=True)
     embed.add_field(name="!say [*message*]", value="bot sends the designated message", inline=True)
     embed.add_field(name="!unzip", value="PLEASE DON'T USE IT", inline=True)
     embed.add_field(name="!perhaps", value="PLEASE DON'T USE IT EITHER", inline=True)
@@ -597,7 +623,6 @@ async def devhelp(ctx):
     embed.add_field(name="!randReact_off", value="prevents the bot from randomly adding a reaction to a message", inline=True)
 
     await ctx.send(embed=embed)
-
 
 
 client.run(token)
