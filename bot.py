@@ -7,6 +7,8 @@ from discord.utils import find
 from itertools import cycle
 from requests import get
 from udpy import UrbanClient
+import youtube_dl
+import os
 
 
 def get_prefix(client, message):
@@ -590,7 +592,6 @@ async def ud(ctx, *, term):
         embed.add_field(name=f"I DON'T FUCKING KNOW!", value=f"Go google it yourself you lazy piece of bruh\n(╯°□°）╯︵ ┻━┻", inline=True)
         await ctx.send(embed=embed)
 
-    
 @client.command()
 async def help(ctx):
     embed = discord.Embed(colour = discord.Colour.orange())                             
