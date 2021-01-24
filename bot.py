@@ -319,6 +319,12 @@ async def unban_error(ctx, error):
 
 @client.command()
 async def tell(ctx, member : discord.Member, *, reason):
+    if "/tts" in reason:
+        nreason = reason.replace("/tts", "")
+        await ctx.channel.purge(limit=1)
+        await ctx.send(f"{member.mention} {nreason}", tts=True)
+        return
+
     await ctx.channel.purge(limit=1)
     await ctx.send(f"{member.mention} {reason}")
 
@@ -329,6 +335,12 @@ async def tell_error(ctx, error):
 
 @client.command()
 async def say(ctx, *, reason):
+    if "/tts" in reason:
+        nreason = reason.replace("/tts", "")
+        await ctx.channel.purge(limit=1)
+        await ctx.send(f"{nreason}", tts=True)
+        return
+
     await ctx.channel.purge(limit=1)
     await ctx.send(f"{reason}")
 
