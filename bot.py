@@ -519,6 +519,11 @@ async def reddit(ctx, *, name):
     while(error != 0):
         try:
             reddit_post = get(f"https://www.reddit.com/r/{names}/random.json", headers = headers).json()
+            if(reddit_post[0]['data']['children'][0]['data']['over_18'] == 1):
+                if(random.random() <= 0.6):
+                    await ctx.send("HMMMM. Is this NSFW? (╯°□°）╯︵ ┻━┻")
+                    return
+                await ctx.send("NSFW post? ( ͡☉⁄ ⁄ ͜⁄ ͜ʖ̫⁄ ⁄ ͡☉)")
             await ctx.send(reddit_post[0]['data']['children'][0]['data']['url'])
             error = 0
         except:
