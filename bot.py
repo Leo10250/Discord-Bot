@@ -520,7 +520,10 @@ async def reddit(ctx, *, name):
         try:
             reddit_post = get(f"https://www.reddit.com/r/{names}/random.json", headers = headers).json()
             if(reddit_post[0]['data']['children'][0]['data']['over_18'] == 1):
-                if(random.random() <= 0.6):
+                if(ctx.channel.is_nsfw() != 1):
+                    await ctx.send("No NSFW post in non-NSFW channels!!! ¯\_(ツ)_/¯\nUNLESS?")
+                    return
+                if(random.random() <= 0.75):
                     await ctx.send("HMMMM. Is this NSFW? (╯°□°）╯︵ ┻━┻")
                     return
                 await ctx.send("NSFW post? ( ͡☉⁄ ⁄ ͜⁄ ͜ʖ̫⁄ ⁄ ͡☉)")
