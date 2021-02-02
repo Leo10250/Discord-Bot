@@ -604,6 +604,32 @@ async def profilepic(ctx, member: Member = None):
         member = ctx.author
     await ctx.send(member.avatar_url)
 
+@client.command()
+async def poll(ctx, *, question):
+    yesvote = 0
+    novote = 0
+
+    await ctx.channel.purge(limit=1)
+    embed = discord.Embed(color = discord.Color.dark_blue())
+    embed1 = discord.Embed(color = discord.Color.dark_blue())
+    embed.set_author(name=f"{question}")
+    embed1.set_author(name=f"{question}")
+
+    embed.add_field(name= "OPTIONS",value="**✅ = Yes**\n**❌ = No**")
+    message = await ctx.send(embed=embed)
+    await message.add_reaction('✅')
+    await message.add_reaction('❌')
+
+    # reaction, user = await client.wait_for("reaction_add")
+    # if(reaction == ":white_check_mark:"):
+    #     yesvote += 1
+    # elif(reaction == ":x:"):
+    #     novote += 1
+    # await ctx.send(reaction);
+    # embed1.add_field(name= "OPTIONS",value=f"**✅ = {yesvote} votes**\n**❌ = {novote} votes**", inline=False)
+    # await message.edit(embed=embed1)
+    
+
 
 @client.command()
 async def help(ctx):
@@ -619,6 +645,7 @@ async def help(ctx):
     embed.add_field(name="!video", value="Quality meme videos", inline=True)
     embed.add_field(name="!youtube", value="Random YouTube videos", inline=True)
     embed.add_field(name="!profilepic (*user*)", value="Get user's profile picture", inline=True)
+    embed.add_field(name="!poll [*question*]", value="Start a poll", inline=True)
     embed.add_field(name="!insult (*user*)", value="Insults designated member", inline=True)
     embed.add_field(name="!tell (*user*) [*message*]", value="@ and sends the designated member the message", inline=True)
     embed.add_field(name="!say [*message*]", value="bot sends the designated message", inline=True)
