@@ -586,7 +586,7 @@ async def ud(ctx, *, term):
 
 
 @client.command()
-async def getpfp(ctx, member: Member = None):
+async def profilepic(ctx, member: Member = None):
     if not member:
         member = ctx.author
     await ctx.send(member.avatar_url)
@@ -605,7 +605,7 @@ async def help(ctx):
     embed.add_field(name="!meme", value="Displays a meme", inline=True)
     embed.add_field(name="!video", value="Quality meme videos", inline=True)
     embed.add_field(name="!youtube", value="Random YouTube videos", inline=True)
-    embed.add_field(name="!getpfp (*user*)", value="Get user's profile picture", inline=True)
+    embed.add_field(name="!profilepic (*user*)", value="Get user's profile picture", inline=True)
     embed.add_field(name="!insult (*user*)", value="Insults designated member", inline=True)
     embed.add_field(name="!tell (*user*) [*message*]", value="@ and sends the designated member the message", inline=True)
     embed.add_field(name="!say [*message*]", value="bot sends the designated message", inline=True)
