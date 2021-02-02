@@ -9,6 +9,7 @@ All users have access to the following commands!
 | `reddit (subreddit name)`   | `Pulls one random post from the subreddit`                       |
 | `waifu`                     | `Random waifus images`                                    |
 | `video`                     | `Interesting videos`                                    |
+| `getpfp (user)`                     | `Get users' profile pictures`                                    |
 | `youtube`                     | `Too deep into YouTube`                                    |
 | `insult (user)`             | `insults the designated user`                                    |
 | `tell (user) [message]`     | `tells the user your message in the current channel`             | 

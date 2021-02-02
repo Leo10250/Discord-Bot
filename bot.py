@@ -2,6 +2,7 @@
 import discord
 import json
 import random
+from discord import Member
 from discord.ext import commands, tasks
 from discord.utils import find
 from itertools import cycle
@@ -101,15 +102,6 @@ async def on_member_join(member):
         channel = await member.create_dm()
         await channel.send(Joining_Message)
 
-    # if LEVEL_SYSTEM == 1: 
-    #     users = json.load(open("Arrays/users.json", "r"))
-
-    #     await update_data(users, member)
-
-    #     json.dump(users, open("Arrays/users.json", "w"), indent=4)
-
-    # print(f"{member} has joined!")
-
 @client.event
 async def on_member_remove(member):
     # print(f"{member} has left!")
@@ -140,18 +132,6 @@ async def on_message(message):
                 last = current
                 await message.channel.send(f"<@{message.author.id}> {CUSTOM_MESSAGE_ON_MESSAGE[current]}")
                 return 
-
-        #  BROKEN LEVEL SYSTEM
-
-        # if LEVEL_SYSTEM == 1:
-        #     users = json.load(open("Arrays/users.json", "r"))
-
-        #     await update_data(users, message.author)
-        #     await add_experience(users, message.author, 5)
-        #     await level_up(users, message.author, message.channel)
-
-        #     json.dump(users, open("Arrays/users.json", "w"), indent=4)
-
 
         if randMessage == 1:
             random_num = random.random() 
@@ -604,6 +584,14 @@ async def ud(ctx, *, term):
         embed.add_field(name=f"I DON'T FUCKING KNOW!", value=f"Go google it yourself you lazy piece of bruh\n(╯°□°）╯︵ ┻━┻", inline=True)
         await ctx.send(embed=embed)
 
+
+@client.command()
+async def getpfp(ctx, member: Member = None):
+    if not member:
+        member = ctx.author
+    await ctx.send(member.avatar_url)
+
+
 @client.command()
 async def help(ctx):
     embed = discord.Embed(colour = discord.Colour.orange())                             
@@ -617,6 +605,7 @@ async def help(ctx):
     embed.add_field(name="!meme", value="Displays a meme", inline=True)
     embed.add_field(name="!video", value="Quality meme videos", inline=True)
     embed.add_field(name="!youtube", value="Random YouTube videos", inline=True)
+    embed.add_field(name="!getpfp (*user*)", value="Get user's profile picture", inline=True)
     embed.add_field(name="!insult (*user*)", value="Insults designated member", inline=True)
     embed.add_field(name="!tell (*user*) [*message*]", value="@ and sends the designated member the message", inline=True)
     embed.add_field(name="!say [*message*]", value="bot sends the designated message", inline=True)
