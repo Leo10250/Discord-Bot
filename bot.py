@@ -183,6 +183,11 @@ async def on_message(message):
                     await message.channel.send(f"<@{message.author.id}> stfu")
                     return
 
+        if "what" in message.content.lower() and "calm leo" in message.content.lower() and "prefix" in message.content.lower():
+            with open("Arrays/prefixes.json", "r") as f:
+                prefixes = json.load(f)
+            await message.channel.send(prefixes[str(message.guild.id)])
+
         if "among us" in message.content.lower():
             if random.random() < 0.01:
                 await message.channel.send(f"<@{message.author.id}> you are getting voted off rn bro.")
@@ -628,6 +633,7 @@ async def modhelp(ctx):
     embed.add_field(name="!kick *member*", value="Kicks a member(if with permission)", inline=True)
     embed.add_field(name="!ban *member*", value="Bans a member(if with permission)", inline=True)
     embed.add_field(name="!unban *member*", value="Unbans a member(if with permission)", inline=True)
+    embed.add_field(name="*what calm leo prefix*", value="displays the prefix (this is not a command)", inline=True) 
 
     await ctx.send(embed=embed)
 
@@ -636,8 +642,7 @@ async def modhelp(ctx):
 @client.command()
 async def devhelp(ctx):
     embed = discord.Embed(colour = discord.Colour.blue()) 
-    embed.add_field(name="!change_prefix [*prefix*]", value="Change the prefix", inline=True)
-    embed.add_field(name="!getprefix", value="displays the prefix", inline=True)                            
+    embed.add_field(name="!change_prefix [*prefix*]", value="Change the prefix", inline=True)                           
     embed.add_field(name="!randMessage_on", value="allows the bot to send random messages", inline=True)
     embed.add_field(name="!randMessage_off", value="prevents the bot to send random messages", inline=True)
     embed.add_field(name="!randReact_on", value="allows the bot to randomly add a reaction to a message", inline=True)
