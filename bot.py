@@ -605,6 +605,10 @@ async def profilepic(ctx, member: Member = None):
     await ctx.send(member.avatar_url)
 
 @client.command()
+async def beans(ctx):
+    await ctx.send("https://ifunny.co/video/GPNeYfUL8")
+
+@client.command()
 async def poll(ctx, *, question):
     yesvote = 0
     novote = 0

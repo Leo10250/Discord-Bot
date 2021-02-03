@@ -11,11 +11,13 @@ All users have access to the following commands!
 | `video`                     | `Interesting videos`                                    |
 | `profilepic (user)`                     | `Get users' profile pictures`                                    |
 | `youtube`                     | `Too deep into YouTube`                                    |
+| `poll [question]`                     | `Start a poll` |
 | `insult (user)`             | `insults the designated user`                                    |
 | `tell (user) [message]`     | `tells the user your message in the current channel`             | 
 | `say [message]`             | `bot sends the designated message` |
 | `unzip`                     | `It's nothing...` |
 | `perhaps`                     | `perhaps` |
+| `beans`                     | `BEANS` |
 | `dm (user) [message]`       | `dm the user your message(your name included)`                   |
 | `pm (user) [message]`       | `pm the user your message(your name not included)`               |
 | `ping`                      | `replies you with your current ping`                             |
