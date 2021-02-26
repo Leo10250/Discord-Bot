@@ -8,7 +8,6 @@ from discord.utils import find
 from itertools import cycle
 from requests import get
 from udpy import UrbanClient
-import youtube_dl
 import os
 
 

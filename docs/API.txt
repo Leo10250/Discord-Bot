@@ -1,2 +1,5 @@
+https://pypi.org/project/discord.py/
+    python3 -m pip install -U discord.py
+
 https://pypi.org/project/udpy/
-    "pip install udpy"
+    pip install udpy
