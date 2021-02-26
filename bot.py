@@ -183,7 +183,7 @@ async def on_message(message):
                     await message.channel.send(f"<@{message.author.id}> stfu")
                     return
 
-        if "what" in message.content.lower() and "calm leo" in message.content.lower() and "prefix" in message.content.lower():
+        if "calm leo" in message.content.lower() and "prefix" in message.content.lower():
             with open("Arrays/prefixes.json", "r") as f:
                 prefixes = json.load(f)
             await message.channel.send(prefixes[str(message.guild.id)])
@@ -517,7 +517,7 @@ async def jojo(ctx):
     error = 1
     while(error != 0):
         try:
-            reddit_post = get('https://www.reddit.com/r/shitpostcrusaders/random.json', headers = headers).json()
+            reddit_post = get('https://www.reddit.com/r/ShitPostCrusaders/random.json', headers = headers).json()
             await ctx.send(reddit_post[0]['data']['children'][0]['data']['url'])
             error = 0
         except:
@@ -543,7 +543,7 @@ async def reddit(ctx, *, name):
             reddit_post = get(f"https://www.reddit.com/r/{names}/random.json", headers = headers).json()
             if(reddit_post[0]['data']['children'][0]['data']['over_18'] == 1):
                 if(ctx.channel.is_nsfw() != 1):
-                    await ctx.send("No NSFW post in non-NSFW channels!!! ¯\_(ツ)_/¯\nUNLESS?")
+                    await ctx.send("No NSFW post in non-NSFW channels!!! ¯\_(ツ)_/¯\nUnless...")
                     return
                 if(random.random() <= 0.75):
                     await ctx.send("HMMMM. Is this NSFW? (╯°□°）╯︵ ┻━┻")
