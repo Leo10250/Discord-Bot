@@ -544,9 +544,9 @@ async def reddit(ctx, *, name):
                 if(ctx.channel.is_nsfw() != 1):
                     await ctx.send("No NSFW post in non-NSFW channels!!! ¯\_(ツ)_/¯\nUnless...")
                     return
-                if(random.random() <= 0.75):
-                    await ctx.send("HMMMM. Is this NSFW? (╯°□°）╯︵ ┻━┻")
-                    return
+                # if(random.random() <= 0.75):
+                #     await ctx.send("HMMMM. Is this NSFW? (╯°□°）╯︵ ┻━┻")
+                #     return
                 await ctx.send("NSFW post? ( ͡☉⁄ ⁄ ͜⁄ ͜ʖ̫⁄ ⁄ ͡☉)")
             await ctx.send(reddit_post[0]['data']['children'][0]['data']['url'])
             error = 0
