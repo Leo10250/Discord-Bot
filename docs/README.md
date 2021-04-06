@@ -3,6 +3,7 @@ Hey! Welcome to my Discord bot, dubbed "Calm Leo," because it is a way "calmer" 
 
 **Features**
 * Custom welcome, about, join, and help messages tailored to communities
+* Pulling posts, images, and definitions from Reddit and Urban Dictionary
 * Moderation commands to help moderators manage a community
 * Wipe recent channel history
 * Intelligently respond to certain users
