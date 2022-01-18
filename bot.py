@@ -654,7 +654,6 @@ async def video(ctx):
     query = parse_qs(urlparse(url).query, keep_blank_values=True)
     playlist_id = query["list"][0]
 
-    print(f"get all playlist items links from {playlist_id}")
     youtube = googleapiclient.discovery.build(
         "youtube", "v3", developerKey="AIzaSyDnGX57fej1_OzcwKYYapAVB2Legdy1meU"
     )

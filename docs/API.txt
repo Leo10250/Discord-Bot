@@ -3,10 +3,13 @@ https://linuxize.com/post/how-to-install-pip-on-ubuntu-20.04/
     sudo apt install python3-pip
 
 https://pypi.org/project/discord.py/
-    python3 -m pip install -U discord.py
+    pip install -U discord.py
 
 https://pypi.org/project/udpy/
     pip install udpy
     
 https://pypi.org/project/NHentai-API/
     pip3 install --upgrade NHentai-API
+
+YouTube Data API v3
+    pip3 install --upgrade google-api-python-client
