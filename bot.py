@@ -15,6 +15,8 @@ from NHentai import NHentai
 import re
 import time
 from datetime import datetime
+import googleapiclient.discovery
+from urllib.parse import parse_qs, urlparse
 
 intents = discord.Intents.default()
 intents.members = True
@@ -647,12 +649,46 @@ async def silent(ctx, member: discord.Member):
 
 @client.command()
 async def video(ctx):
-    current_web = random.randint(0, len(websites) - 1)
-    global last_web
-    while last_web == current_web:
-        current_web = random.randint(0, len(websites) - 1)
-        last_web = current_web
-    await ctx.send(f"{websites[current_web]}")
+
+    url = "https://youtube.com/playlist?list=PLAr0uSVISvMV9UejvuqnIumjOp5cV83LZ"
+    query = parse_qs(urlparse(url).query, keep_blank_values=True)
+    playlist_id = query["list"][0]
+
+    print(f"get all playlist items links from {playlist_id}")
+    youtube = googleapiclient.discovery.build(
+        "youtube", "v3", developerKey="AIzaSyDnGX57fej1_OzcwKYYapAVB2Legdy1meU"
+    )
+
+    request = youtube.playlistItems().list(
+        part="snippet", playlistId=playlist_id, maxResults=50
+    )
+    response = request.execute()
+
+    playlist_items = []
+    while request is not None:
+        response = request.execute()
+        playlist_items += response["items"]
+        request = youtube.playlistItems().list_next(request, response)
+
+    # print(f"total: {len(playlist_items)}")
+    # print(
+    #     [
+    #         f'https://www.youtube.com/watch?v={t["snippet"]["resourceId"]["videoId"]}&list={playlist_id}&t=0s'
+    #         for t in playlist_items
+    #     ]
+    # )
+    index = random.randint(0, len(playlist_items) - 1)
+    t = playlist_items[index]
+    await ctx.send(
+        f'https://www.youtube.com/watch?v={t["snippet"]["resourceId"]["videoId"]}&list={playlist_id}&t=0s'
+    )
+
+    # current_web = random.randint(0, len(websites) - 1)
+    # global last_web
+    # while last_web == current_web:
+    #     current_web = random.randint(0, len(websites) - 1)
+    #     last_web = current_web
+    # await ctx.send(f"{websites[current_web]}")
 
 
 @client.command()
