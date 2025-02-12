@@ -655,7 +655,7 @@ async def video(ctx):
     playlist_id = query["list"][0]
 
     youtube = googleapiclient.discovery.build(
-        "youtube", "v3", developerKey="AIzaSyDnGX57fej1_OzcwKYYapAVB2Legdy1meU"
+        "youtube", "v3", developerKey=""
     )
 
     request = youtube.playlistItems().list(
